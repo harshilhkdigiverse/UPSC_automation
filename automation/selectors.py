@@ -24,6 +24,8 @@ SELECTORS = {
     # English Question Section
     # -----------------------------------------------------------------------
     "en_question":      "input[name='englishQuestion.question']",
+    "en_question_img":  "div:has(input[name='englishQuestion.question']) input[type='file']",
+
     # Statement type extras:
     "stmt_add_btn":     "button[title='Add Statement']",
     "stmt_remove_btn":  "button[title='Remove Statement']",
@@ -32,25 +34,41 @@ SELECTORS = {
     "en_last_question": "input[name='englishQuestion.lastQuestion']",
     # Options:
     "en_option_A": "input[name='englishQuestion.options.A']",
+    "en_option_A_img": "div:has(input[name='englishQuestion.options.A']) input[type='file']",
     "en_option_B": "input[name='englishQuestion.options.B']",
+    "en_option_B_img": "div:has(input[name='englishQuestion.options.B']) input[type='file']",
     "en_option_C": "input[name='englishQuestion.options.C']",
+    "en_option_C_img": "div:has(input[name='englishQuestion.options.C']) input[type='file']",
     "en_option_D": "input[name='englishQuestion.options.D']",
+    "en_option_D_img": "div:has(input[name='englishQuestion.options.D']) input[type='file']",
+
     # Answer radio (value must be uppercase A/B/C/D):
     "en_answer":   "input[name='englishQuestion.answer']",
     # Solution:
     "en_solution": "textarea[name='englishQuestion.solution']",
+    "en_solution_img": "div:has(textarea[name='englishQuestion.solution']) input[type='file']",
+
 
     # -----------------------------------------------------------------------
     # Hindi Question Section (mirrors English)
     # -----------------------------------------------------------------------
     "hi_question":      "input[name='hindiQuestion.question']",
+    "hi_question_img":  "div:has(input[name='hindiQuestion.question']) input[type='file']",
+
     "hi_last_question": "input[name='hindiQuestion.lastQuestion']",
     "hi_option_A": "input[name='hindiQuestion.options.A']",
+    "hi_option_A_img": "div:has(input[name='hindiQuestion.options.A']) input[type='file']",
     "hi_option_B": "input[name='hindiQuestion.options.B']",
+    "hi_option_B_img": "div:has(input[name='hindiQuestion.options.B']) input[type='file']",
     "hi_option_C": "input[name='hindiQuestion.options.C']",
+    "hi_option_C_img": "div:has(input[name='hindiQuestion.options.C']) input[type='file']",
     "hi_option_D": "input[name='hindiQuestion.options.D']",
+    "hi_option_D_img": "div:has(input[name='hindiQuestion.options.D']) input[type='file']",
+
     "hi_answer":   "input[name='hindiQuestion.answer']",
     "hi_solution": "textarea[name='hindiQuestion.solution']",
+    "hi_solution_img": "div:has(textarea[name='hindiQuestion.solution']) input[type='file']",
+
 
     # -----------------------------------------------------------------------
     # Buttons

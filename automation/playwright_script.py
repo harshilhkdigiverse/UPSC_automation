@@ -6,9 +6,28 @@ Handles both Normal and Statement question types.
 import time
 import json
 import traceback
+import os
 from playwright.sync_api import sync_playwright, TimeoutError as PlaywrightTimeoutError
 from automation.selectors import SELECTORS, QTYPE_SELECTOR_MAP
 from config.config import BASE_URL, MAX_RETRIES, DELAY_BETWEEN_QUESTIONS
+
+
+# ---------------------------------------------------------------------------
+# File Upload Helper
+# ---------------------------------------------------------------------------
+
+def upload_file_if_present(page, selector_key: str, file_path: str):
+    """If file_path is provided, use playwright to upload it to the input[type=file]."""
+    if not file_path or not os.path.exists(file_path):
+        return
+        
+    selector = SELECTORS.get(selector_key)
+    if not selector:
+        return
+        
+    print(f"    → Uploading image: {os.path.basename(file_path)}")
+    page.set_input_files(selector, file_path)
+    page.wait_for_timeout(500)
 
 
 # ---------------------------------------------------------------------------
@@ -69,7 +88,10 @@ def fill_statements(page, statements: list[str], section: str = "english"):
     # For English, we expect 1 match across the DOM. For Hindi, we expect 2 (English + Hindi)
     expected_count = 2 if use_last else 1
 
-    for idx, stmt_text in enumerate(statements):
+    for idx, stmt in enumerate(statements):
+        # stmt can be a string or a dict {"text": ..., "image": ...}
+        stmt_text = stmt["text"] if isinstance(stmt, dict) else stmt
+        
         placeholder = f"Statement {idx + 1}"
         locator = page.locator(f"input[placeholder='{placeholder}']")
 
@@ -119,8 +141,6 @@ def fill_pairs(page, pairs: list, section: str = "english"):
 
     for idx, row_data in enumerate(clean_pairs):
         required_rows = offset + idx + 1
-
-        # Click '+' until the required row exists
         while left_locator.count() < required_rows:
             add_btn = page.locator(SELECTORS["pair_add_btn"])
             btn_target = add_btn.last if use_last else add_btn.first
@@ -129,12 +149,15 @@ def fill_pairs(page, pairs: list, section: str = "english"):
 
         # Fill dynamically for each column
         current_index = offset + idx
-        for col_i, text_val in enumerate(row_data):
+        for col_i, cell in enumerate(row_data):
+            # cell can be string or dict {"text": ..., "image": ...}
+            cell_text = cell["text"] if isinstance(cell, dict) else cell
             col_id = col_i + 1
             col_loc = page.locator(f"input[placeholder='pair{col_id}']")
-            col_loc.nth(current_index).fill(text_val)
+            col_loc.nth(current_index).fill(cell_text)
         
         page.wait_for_timeout(200)
+
 
 
 # ---------------------------------------------------------------------------
@@ -147,12 +170,13 @@ def fill_english(page, q: dict):
 
     # Top/preamble question
     page.fill(SELECTORS["en_question"], eng["question"])
+    upload_file_if_present(page, "en_question_img", eng.get("question_image"))
 
     # Statements or Pairs
     if q_type in ("statement", "statement-csat"):
         if eng.get("statements"):
-            fill_statements(page, eng["statements"], section="english")
-        # Fill the closing question
+            fill_statements(page, [s["text"] for s in eng["statements"]], section="english")
+            # Handle statement images? (The current selectors only target top-level fields)
         if eng.get("lastQuestion"):
             page.fill(SELECTORS["en_last_question"], eng["lastQuestion"])
             
@@ -163,10 +187,9 @@ def fill_english(page, q: dict):
             page.fill(SELECTORS["en_last_question"], eng["lastQuestion"])
             
     # Options
-    page.fill(SELECTORS["en_option_A"], eng["options"]["A"])
-    page.fill(SELECTORS["en_option_B"], eng["options"]["B"])
-    page.fill(SELECTORS["en_option_C"], eng["options"]["C"])
-    page.fill(SELECTORS["en_option_D"], eng["options"]["D"])
+    for letter in ("A", "B", "C", "D"):
+        page.fill(SELECTORS[f"en_option_{letter}"], eng["options"].get(letter, ""))
+        upload_file_if_present(page, f"en_option_{letter}_img", eng.get("options_images", {}).get(letter))
 
     # Answer — HTML values are UPPERCASE (A, B, C, D)
     answer = eng["answer"].upper()
@@ -174,6 +197,8 @@ def fill_english(page, q: dict):
 
     # Solution
     page.fill(SELECTORS["en_solution"], eng["solution"])
+    upload_file_if_present(page, "en_solution_img", eng.get("solution_image"))
+
 
 
 # ---------------------------------------------------------------------------
@@ -186,11 +211,12 @@ def fill_hindi(page, q: dict):
 
     # Top/preamble question
     page.fill(SELECTORS["hi_question"], hi["question"])
+    upload_file_if_present(page, "hi_question_img", hi.get("question_image"))
 
     # Statements or Pairs
     if q_type in ("statement", "statement-csat"):
         if hi.get("statements"):
-            fill_statements(page, hi["statements"], section="hindi")
+            fill_statements(page, [s["text"] for s in hi["statements"]], section="hindi")
         if hi.get("lastQuestion"):
             page.fill(SELECTORS["hi_last_question"], hi["lastQuestion"])
             
@@ -201,10 +227,9 @@ def fill_hindi(page, q: dict):
             page.fill(SELECTORS["hi_last_question"], hi["lastQuestion"])
 
     # Options
-    page.fill(SELECTORS["hi_option_A"], hi["options"]["A"])
-    page.fill(SELECTORS["hi_option_B"], hi["options"]["B"])
-    page.fill(SELECTORS["hi_option_C"], hi["options"]["C"])
-    page.fill(SELECTORS["hi_option_D"], hi["options"]["D"])
+    for letter in ("A", "B", "C", "D"):
+        page.fill(SELECTORS[f"hi_option_{letter}"], hi["options"].get(letter, ""))
+        upload_file_if_present(page, f"hi_option_{letter}_img", hi.get("options_images", {}).get(letter))
 
     # Answer — same as English (per website documentation)
     answer = q["english"]["answer"].upper()
@@ -212,6 +237,8 @@ def fill_hindi(page, q: dict):
 
     # Solution
     page.fill(SELECTORS["hi_solution"], hi["solution"])
+    upload_file_if_present(page, "hi_solution_img", hi.get("solution_image"))
+
 
 
 # ---------------------------------------------------------------------------

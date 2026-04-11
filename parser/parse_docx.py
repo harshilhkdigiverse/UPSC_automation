@@ -1,19 +1,18 @@
 """
-parse_docx.py
-Parse UPSC question DOCX files using Ollama (llama3.2:3b) for intelligent extraction.
-Falls back to regex parsing if Ollama is unavailable.
+parse_docx.py - V3 Robust
 """
 import docx
 import json
 import re
 import os
 
-# Fallback regex parser
-# ---------------------------------------------------------------------------
+# Use a very specific marker that won't conflict with anything
+IMG_START = "[[IMG_START]]"
+IMG_END = "[[IMG_END]]"
 
 def extract_field(text: str) -> dict:
-    """Extracts an embedded image marker yielding a separate text and image field."""
-    m = re.search(r'\[IMAGE:\s*(.*?)\]', text, re.I)
+    pattern = re.escape(IMG_START) + r"\s*(.*?)\s*" + re.escape(IMG_END)
+    m = re.search(pattern, text, re.I)
     if m:
         return {
             "text": text.replace(m.group(0), '').strip(),
@@ -22,26 +21,35 @@ def extract_field(text: str) -> dict:
     return {"text": text.strip(), "image": ""}
 
 def parse_block_regex(text: str) -> dict | None:
-    """Simple regex-based parser as fallback when Ollama is unavailable."""
     lines = [l.strip() for l in text.split('\n') if l.strip()]
-    if len(lines) < 6:
-        return None
+    if len(lines) < 4: return None
 
-    subtopic = lines[0]
-    category = lines[1].lower()
-    question_type = lines[2]  # Normal / Statement / etc.
+    q_idx = -1
+    for idx, line in enumerate(lines):
+        if re.match(r'^(?:' + re.escape(IMG_START) + r'.*?' + re.escape(IMG_END) + r'\s*)?\(\d+\)', line):
+            q_idx = idx
+            break
+    
+    if q_idx == -1: return None
+    
+    meta = lines[:q_idx]
+    subtopic = meta[0] if len(meta) > 0 else "Unknown"
+    category = meta[1].lower() if len(meta) > 1 else "aptitude"
+    question_type = meta[2].lower() if len(meta) > 2 else "normal"
 
-    i = 3
-    # Skip the question number prefix like "(1) " or "(2) "
+    i = q_idx
     question_lines = []
-    first = re.sub(r'^\(\d+\)\s*', '', lines[i]).strip()
-    question_lines.append(first)
+    first_q_line = re.sub(r'^\(\d+\)\s*', '', lines[i]).strip()
+    question_lines.append(first_q_line)
     i += 1
 
-    # Collect until we hit numbered statements, pairs, or options
-    while i < len(lines) and not re.match(r'^(?:\([a-dA-D]\)|[A-D]\s*:)', lines[i], re.I) \
-            and not re.match(r'^Pair\s*\d+\s*:', lines[i], re.I) \
-            and not re.match(r'^\d+\.', lines[i]):
+    is_options = lambda s: bool(re.match(r'^(?:\([a-dA-D]\)|[A-D]\s*:)', s, re.I))
+    is_pair = lambda s: bool(re.match(r'^Pair\s*\d+\s*:', s, re.I))
+    is_stmt = lambda s: bool(re.match(r'^\d+\.', s, re.I))
+    is_ans = lambda s: bool(re.search(r'Answer\s*:', s, re.I))
+    is_sol = lambda s: bool(re.search(r'Solution\s*:', s, re.I))
+
+    while i < len(lines) and not is_options(lines[i]) and not is_pair(lines[i]) and not is_stmt(lines[i]) and not is_ans(lines[i]):
         question_lines.append(lines[i])
         i += 1
 
@@ -49,97 +57,92 @@ def parse_block_regex(text: str) -> dict | None:
     pairs = []
     lastQuestion = ""
 
-    if question_type.lower() in ("statement", "statement-csat"):
-        # Preamble is accumulated so far
-        # Collect numbered statements (1. ..., 2. ...)
-        stmt_lines = []
-        while i < len(lines) and re.match(r'^\d+\.', lines[i]):
+    if "statement" in question_type:
+        while i < len(lines) and is_stmt(lines[i]):
             stmt_text = re.sub(r'^\d+\.\s*', '', lines[i]).strip()
-            stmt_lines.append(extract_field(stmt_text))
+            statements.append(extract_field(stmt_text))
             i += 1
-        statements = stmt_lines
-
-
-        # Collect lastQuestion (lines until options)
         lq_parts = []
-        while i < len(lines) and not re.match(r'^(?:\([a-dA-D]\)|[A-D]\s*:)', lines[i], re.I):
+        while i < len(lines) and not is_options(lines[i]) and not is_ans(lines[i]):
             lq_parts.append(lines[i])
             i += 1
         lastQuestion = ' '.join(lq_parts).strip()
-        
-    elif question_type.lower() == "pair":
-        # Extract Pairs (Pair 1: col1 = col2 = col3)
-        while i < len(lines) and re.match(r'^Pair\s*\d+\s*:', lines[i], re.I):
+    elif question_type == "pair":
+        while i < len(lines) and is_pair(lines[i]):
             pair_line = re.sub(r'^Pair\s*\d+\s*:\s*', '', lines[i], flags=re.I).strip()
-            # Split by equals sign into any number of columns with robust image structures
-            parts = [extract_field(p.strip()) for p in re.split(r'\s*=\s*', pair_line)]
-            pairs.append(parts)
+            row = [extract_field(p.strip()) for p in re.split(r'\s*=\s*', pair_line)]
+            pairs.append(row)
             i += 1
-            
-        # Collect lastQuestion (lines until options)
         lq_parts = []
-        while i < len(lines) and not re.match(r'^(?:\([a-dA-D]\)|[A-D]\s*:)', lines[i], re.I):
+        while i < len(lines) and not is_options(lines[i]) and not is_ans(lines[i]):
             lq_parts.append(lines[i])
             i += 1
         lastQuestion = ' '.join(lq_parts).strip()
-        
     else:
-        # Normal: continue collecting question until options
-        while i < len(lines) and not re.match(r'^(?:\([a-dA-D]\)|[A-D]\s*:)', lines[i], re.I):
+        while i < len(lines) and not is_options(lines[i]) and not is_ans(lines[i]):
             question_lines.append(lines[i])
             i += 1
 
-    question_text = '\n'.join([l for l in question_lines if l]).strip()
+    question_field = extract_field('\n'.join(question_lines))
 
     # Options
     options = {}
     options_images = {}
     opt_map = {'a': 'A', 'b': 'B', 'c': 'C', 'd': 'D'}
-    while i < len(lines):
-        m = re.match(r'^(?:\(([a-dA-D])\)|\b([a-dA-D])\s*:)\s*(.*)', lines[i], re.I)
-        if m:
-            letter = (m.group(1) or m.group(2)).lower()
-            text_opt = m.group(3).strip()
+    
+    while i < len(lines) and not is_ans(lines[i]):
+        line = lines[i]
+        # Robust marker: Check if line starts with marker or has marker after substantial space
+        # And ensure we don't match inside IMG tags by checking the left context
+        matches = []
+        # Find all potential matches
+        for m in re.finditer(r'(?:\(([a-dA-D])\)|\b([a-dA-D])\s*:)', line, re.I):
+            # Check if this match is inside an IMG tag
+            pre = line[:m.start()]
+            if pre.count(IMG_START) > pre.count(IMG_END):
+                continue # Inside tag
+            matches.append(m)
+        
+        if matches:
+            for idx_m, m in enumerate(matches):
+                letter = (m.group(1) or m.group(2)).lower()
+                start_text = m.end()
+                end_text = matches[idx_m+1].start() if idx_m+1 < len(matches) else len(line)
+                text_opt = line[start_text:end_text].strip()
+                field = extract_field(text_opt)
+                options[opt_map[letter]] = field["text"]
+                options_images[opt_map[letter]] = field["image"]
             i += 1
-            while i < len(lines) and not re.match(r'^(?:\([a-dA-D]\)|[A-D]\s*:)', lines[i], re.I) \
-                    and not re.match(r'^Answer\s*:', lines[i], re.I):
-                text_opt += ' ' + lines[i]
-                i += 1
-                
-            opt_field = extract_field(text_opt)
-            options[opt_map[letter]] = opt_field["text"]
-            options_images[opt_map[letter]] = opt_field["image"]
+        elif options and not is_stmt(line) and not is_pair(line) and not is_ans(line):
+            last_l = sorted(options.keys())[-1]
+            ext = extract_field(line)
+            options[last_l] += " " + ext["text"]
+            if ext["image"]: options_images[last_l] = ext["image"]
+            i += 1
         else:
             break
 
     # Answer
     answer = ''
-    while i < len(lines):
-        am = re.match(r'^Answer\s*:\s*(?:\()?([a-dA-D])(?:\))?', lines[i], re.I)
+    while i < len(lines) and not is_sol(lines[i]):
+        am = re.search(r'Answer\s*:\s*\(?([a-dA-D])\)?', lines[i], re.I)
         if am:
             answer = am.group(1).lower()
-            i += 1
-            break
         i += 1
 
     # Solution
     solution_lines = []
     while i < len(lines):
-        sm = re.match(r'^Solution\s*:\s*(.*)', lines[i], re.I)
+        sm = re.search(r'Solution\s*:\s*(.*)', lines[i], re.I)
         if sm:
-            first_sol_val = sm.group(1).strip()
-            if first_sol_val:
-                solution_lines.append(first_sol_val)
+            solution_lines.append(sm.group(1).strip())
             i += 1
             while i < len(lines):
                 solution_lines.append(lines[i])
                 i += 1
             break
         i += 1
-    solution = ' '.join(solution_lines).strip()
-
-    solution_field = extract_field(solution)
-    question_field = extract_field(question_text)
+    solution_field = extract_field('\n'.join(solution_lines))
 
     return {
         "subtopic": subtopic,
@@ -157,202 +160,85 @@ def parse_block_regex(text: str) -> dict | None:
         "solution_image": solution_field["image"]
     }
 
-
-# ---------------------------------------------------------------------------
-# Normalise & validate the extracted dict
-# ---------------------------------------------------------------------------
-
 def normalise(q: dict) -> dict | None:
-    """Ensure required fields exist and are clean."""
-    required = ["subtopic", "category", "question_type", "question", "options", "answer", "solution"]
-    for key in required:
-        if key not in q:
-            print(f"  [WARN] Missing field: {key}")
-            return None
-
-    # Defaults for optional fields
-    q.setdefault("statements", [])
-    q.setdefault("pairs", [])
-    q.setdefault("lastQuestion", "")
-
-    # Clean up
-    q["category"] = q["category"].lower().strip()
-    q["answer"] = q["answer"].lower().strip()
-
-    # Validate answer is a single letter
-    if q["answer"] not in ("a", "b", "c", "d"):
-        print(f"  [WARN] Invalid answer: {q['answer']!r}")
-        return None
-
-    # Fix option keys to be uppercase
-    if "options" in q:
-        new_options = {}
-        for k, v in q["options"].items():
-            new_options[k.upper()] = v
-        q["options"] = new_options
-
-    if len(q.get("options", {})) < 4:
-        print(f"  [WARN] Only {len(q['options'])} options found")
-        return None
-
+    if not q["question"] and not q["question_image"]: return None
+    if len(q["options"]) < 4: return None
+    if not q["answer"]: return None
     return q
 
-
-# ---------------------------------------------------------------------------
-# Language-agnostic block parser
-# ---------------------------------------------------------------------------
-
-def parse_block(text: str) -> dict | None:
-    q = parse_block_regex(text)
-
-    if q is None:
-        return None
-
-    return normalise(q)
-
-
-# ---------------------------------------------------------------------------
-# Merge English + Hindi question dicts
-# ---------------------------------------------------------------------------
-
-def merge_questions(en_questions: list, hi_questions: list) -> list:
-    """Combine English and Hindi question dicts into final structure."""
-    merged = []
-    for i, en_q in enumerate(en_questions):
-        hi_q = hi_questions[i] if i < len(hi_questions) else None
-
-        entry = {
-            "subtopic": en_q["subtopic"],
-            "category": en_q["category"],
-            "question_type": en_q["question_type"],
-            "english": {
-                "question": en_q["question"],
-                "statements": en_q.get("statements", []),
-                "pairs": en_q.get("pairs", []),
-                "lastQuestion": en_q.get("lastQuestion", ""),
-                "options": en_q["options"],
-                "answer": en_q["answer"],
-                "solution": en_q["solution"],
-            },
-            "hindi": {
-                "question": hi_q["question"] if hi_q else "",
-                "statements": hi_q.get("statements", []) if hi_q else [],
-                "pairs": hi_q.get("pairs", []) if hi_q else [],
-                "lastQuestion": hi_q.get("lastQuestion", "") if hi_q else "",
-                "options": hi_q["options"] if hi_q else {"A": "", "B": "", "C": "", "D": ""},
-                # Hindi answer is always same as English (per website docs)
-                "answer": en_q["answer"],
-                "solution": hi_q["solution"] if hi_q else "",
-            },
-        }
-        merged.append(entry)
-    return merged
-
-
-# ---------------------------------------------------------------------------
-# Main docx parser
-# ---------------------------------------------------------------------------
-
-def extract_text_with_images(docx_path: str, img_dir="data/images") -> list:
-    doc = docx.Document(docx_path)
+def parse_docx_file(file_path: str) -> list:
+    doc = docx.Document(file_path)
+    img_dir = "data/images"
     os.makedirs(img_dir, exist_ok=True)
-    
-    img_map = {}
-    for rel_id, rel in doc.part.rels.items():
-        if "image" in rel.reltype:
-            img_filename = rel.target_part.partname.split('/')[-1]
-            out_path = os.path.abspath(os.path.join(img_dir, img_filename)).replace('\\', '/')
-            # Write image bytes
-            with open(out_path, "wb") as f:
-                f.write(rel.target_part.blob)
-            img_map[rel_id] = out_path
+    img_map = {r_id: rel.target_part for r_id, rel in doc.part.rels.items() if 'image' in rel.reltype}
 
     lines = []
     for p in doc.paragraphs:
-        xml = p._element.xml
-        # Find either <w:t ...>text</w:t> or r:embed="rIdX"
-        tokens = re.findall(r'(<w:t[^>]*>.*?</w:t>|r:embed="rId\d+")', xml)
-        
-        para_str = ""
-        for token in tokens:
-            if token.startswith('r:embed'):
-                rid = re.search(r'rId\d+', token).group(0)
-                if rid in img_map:
-                    para_str += f" [IMAGE: {img_map[rid]}] "
-            else:
-                text = re.sub(r'<[^>]+>', '', token)
-                para_str += text
-        
-        # Split by soft returns to maintain legacy line matching constraints
-        for single_line in para_str.split('\n'):
-            if single_line.strip():
-                lines.append(single_line.strip())
-            
-    return lines
+        p_text = ''
+        for run in p.runs:
+            p_text += run.text
+            xml = run._element.xml
+            if '<w:drawing>' in xml:
+                m = re.search(r'r:embed=\"(rId\d+)\"', xml)
+                if m and m.group(1) in img_map:
+                    img_part = img_map[m.group(1)]
+                    fname = img_part.partname.split('/')[-1]
+                    out_path = os.path.join(img_dir, fname)
+                    with open(out_path, 'wb') as f: f.write(img_part.blob)
+                    clean_p = os.path.abspath(out_path).replace('\\', '/')
+                    p_text += f" {IMG_START}{clean_p}{IMG_END} "
+        for sl in p_text.split('\n'):
+            if sl.strip(): lines.append(sl.strip())
 
-def parse_docx_file(file_path: str) -> list:
-    questions = []
-    
-    # Extract flattened lines with images injected inline
-    lines = extract_text_with_images(file_path)
-
-    # Find where each question block begins (3 lines before the "(N)" question number)
     block_starts = []
     for i, line in enumerate(lines):
-        if re.match(r'^\[IMAGE:\s*.*?\]\s*\(\d+\)|^\(\d+\)', line):
-            start_idx = max(0, i - 3)
-            block_starts.append(start_idx)
-
-    # Reconstruct blocks
+        if re.match(r'^(?:' + re.escape(IMG_START) + r'.*?' + re.escape(IMG_END) + r'\s*)?\(\d+\)', line):
+            block_starts.append(max(0, i - 3))
+    
+    questions = []
     for idx in range(len(block_starts)):
         start = block_starts[idx]
-        end = block_starts[idx+1] if idx + 1 < len(block_starts) else len(lines)
-        block_text = '\n'.join(lines[start:end])
-        
-        print(f"  Parsing block {idx + 1}...")
-        q = parse_block(block_text)
+        end = block_starts[idx+1] if idx+1 < len(block_starts) else len(lines)
+        q = parse_block_regex('\n'.join(lines[start:end]))
         if q:
-            questions.append(q)
-        else:
-            print(f"  [WARN] Block {idx + 1} could not be parsed — skipped.")
-
+            nq = normalise(q)
+            if nq: questions.append(nq)
     return questions
 
-
-# ---------------------------------------------------------------------------
-# Entry point
-# ---------------------------------------------------------------------------
+def merge_questions(en_qs: list, hi_qs: list) -> list:
+    merged = []
+    max_len = max(len(en_qs), len(hi_qs))
+    for i in range(max_len):
+        en_q = en_qs[i] if i < len(en_qs) else None
+        hi_q = hi_qs[i] if i < len(hi_qs) else None
+        ref = en_q or hi_q
+        def build_side(q_data):
+            if not q_data:
+                return {
+                    "question": "", "question_image": "",
+                    "statements": [], "pairs": [], "lastQuestion": "",
+                    "options": {"A":"","B":"","C":"","D":""},
+                    "options_images": {"A":"","B":"","C":"","D":""},
+                    "answer": "", "solution": "", "solution_image": ""
+                }
+            return q_data
+        merged.append({
+            "subtopic": ref["subtopic"],
+            "category": ref["category"],
+            "question_type": ref["question_type"],
+            "english": build_side(en_q),
+            "hindi": build_side(hi_q)
+        })
+    return merged
 
 def main():
     os.makedirs("data", exist_ok=True)
-
-    english_path = "data/english.docx"
-    hindi_path = "data/hindi.docx"
-    output_path = "data/parsed_questions.json"
-
-    if not os.path.exists(english_path):
-        print(f"[ERROR] English docx not found at: {english_path}")
-        return
-
-    print(f"\n📄 Parsing English questions from: {english_path}")
-    en_questions = parse_docx_file(english_path)
-    print(f"   ✅ Found {len(en_questions)} English questions.")
-
-    hi_questions = []
-    if os.path.exists(hindi_path):
-        print(f"\n📄 Parsing Hindi questions from: {hindi_path}")
-        hi_questions = parse_docx_file(hindi_path)
-        print(f"   ✅ Found {len(hi_questions)} Hindi questions.")
-    else:
-        print(f"\n   ℹ️  No hindi.docx found — Hindi fields will be empty.")
-
-    merged = merge_questions(en_questions, hi_questions)
-
-    with open(output_path, "w", encoding="utf-8") as f:
+    en = parse_docx_file("data/english.docx")
+    hi = parse_docx_file("data/hindi.docx")
+    merged = merge_questions(en, hi)
+    with open("data/parsed_questions.json", "w", encoding="utf-8") as f:
         json.dump(merged, f, indent=2, ensure_ascii=False)
-
-    print(f"\n✅ Saved {len(merged)} parsed questions → {output_path}")
-
+    print(f"DONE: Parsed {len(merged)} questions.")
 
 if __name__ == "__main__":
     main()

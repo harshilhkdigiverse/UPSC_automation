@@ -1,0 +1,107 @@
+Bodies & Miscellaneous
+Aptitude
+Normal
+
+(1) The hello my name is HARSHIL KAKDIYA Upanishads are(this is hindi):
+(a) Epic poems describing kings and battles
+(b) Philosophical texts that are part of the Vedic corpus
+(c) Ritual manuals for temple construction
+(d) Jain canonical texts
+
+Answer: (b)
+Solution:
+The Upanishads are philosophical texts forming the concluding part of the Vedas.
+
+Bodies & Miscellaneous
+Concept
+Statement
+
+(2) With reference to Jainism, consider the following statements(this is hindi):
+1. Triratna means three gems.
+2. It refers to right faith, knowledge, and conduct.
+3.test
+
+Which of the statements given above is/are correct?
+
+(a) 1 only
+(b) 2 only
+(c) Both 1 and 2
+(d) Neither 1 nor 2
+
+Answer: (c)
+Solution:
+Both statements are correct as they define Triratna in Jainism.
+
+judiciary
+Concept
+Pair
+
+(3) Consider the following pairs:
+
+Pair1:state=feature=test
+Pair 2: Gujarat = Tribute to Somnath Temple marking 1000 years=hello
+Pair 3: Kerala = Renaming of Aralam Wildlife Sanctuary=this is
+Pair 4: Telangana = SC dispute over ST status of Lambada=the 3rd
+Pair 5: Karnataka = Development of space facility at Hope Island=colomn
+
+How many of the above pairs are correctly matched?
+
+(a) Only one
+(b) Only two
+(c) Only three
+(d) All four
+
+Answer: (c)
+
+Solution:
+Pair 1: Gujarat – Correct – Tribute paid to Somnath Temple marking 1000 years since Mahmud of Ghazni’s attack.
+Pair 2: Kerala – Correct – Aralam Wildlife Sanctuary renamed as Aralam Butterfly Sanctuary.
+Pair 3: Telangana – Correct – Supreme Court case regarding Lambada community ST status.
+Pair 4: Karnataka – Incorrect – The space facility at Hope Island belongs to Andhra Pradesh, not Karnataka.
+Conclusion: Only three pairs are correctly matched.
+
+
+judiciary
+Concept
+Statement
+
+
+(4)जून 2024 में नई दिल्ली में आई भीषण हीटवेव और जल संकट के संदर्भ में निम्नलिखित कथनों पर विचार कीजिए: 
+
+1.शहरी ऊष्मा द्वीप प्रभाव महानगरों में हीटवेव को तीव्र करता है।
+2.भूजल का अत्यधिक दोहन शहरी जल संकट का एक प्रमुख कारण है।
+3.हीट एक्शन प्लान आपदा प्रबंधन अधिनियम, 2005 के अंतर्गत कानूनी रूप से अनिवार्य हैं।
+
+उपरोक्त में से कौन-से कथन सही हैं?
+
+(a) केवल 1 और 2	
+(b) केवल 2 और 3
+(c) केवल 1 और 3
+(d) 1, 2 और 3
+
+Answer:A
+
+Solution:
+पूर्ण समाधान – हिंदी (4 खंड)
+1) विस्तृत विषयवस्तु एवं अन्य विकल्प गलत क्यों हैं कथन 1 सही है क्योंकि घनी इमारतें, कंक्रीट संरचना और हरित क्षेत्र की कमी के कारण शहरों में तापमान अधिक रहता है। कथन 2 सही है क्योंकि दिल्ली में भूजल का उपयोग पुनर्भरण क्षमता से अधिक हो चुका है। कथन 3 गलत है क्योंकि हीट एक्शन प्लान नीति आधारित हैं, न कि आपदा प्रबंधन अधिनियम के अंतर्गत कानूनी रूप से बाध्यकारी।
+2) एप्टीट्यूड (संकेत) UPSC में “कानूनी रूप से अनिवार्य” जैसे शब्द अक्सर कथन को गलत बना देते हैं।
+3) PYQ से संबं 2019: शहरी ऊष्मा द्वीप प्रभाव 2020: भूजल ह्रास के कारण
+4) समसामयिक घटनाओं से संबंध जून 2024 में दिल्ली में रिकॉर्ड तापमान, जल संकट, टैंकर निर्भरता और न्यायालयी हस्तक्षेप देखा गया।
+
+judiciary
+Concept
+Normal-Csat
+
+(5) if n is an integer, how many values of n will give an integral value of 
+
+(a): this is a 
+(b): this is b
+(c): this is c
+(d): this is d
+
+Answer:(c)
+
+Solution:
+This is the solution
+
+
