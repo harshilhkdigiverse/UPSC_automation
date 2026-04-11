@@ -1,0 +1,61 @@
+[
+  {
+    "subtopic": "judiciary",
+    "category": "concept",
+    "question_type": "Statement",
+    "english": {
+      "question": "With reference to the severe heatwave and water crisis in New Delhi during June 2024, consider the following statements:",
+      "statements": [
+        {
+          "text": "Urban Heat Island effect intensifies heatwaves in metropolitan cities.",
+          "image": ""
+        },
+        {
+          "text": "Over-extraction of groundwater is a major cause of urban water stress.",
+          "image": ""
+        },
+        {
+          "text": "Heat Action Plans are legally mandated under the Disaster Management Act, 2005.",
+          "image": ""
+        }
+      ],
+      "pairs": [],
+      "lastQuestion": "Which of the statements given above are correct?",
+      "options": {
+        "A": "1 and 2 only",
+        "B": "2 and 3 only",
+        "C": "1 and 3 only",
+        "D": "1, 2 and 3"
+      },
+      "answer": "a",
+      "solution": "1) Detailed Content &amp; Why Other Options Are Wrong Statement 1 is correct because urban areas with dense construction, asphalt roads, and limited vegetation trap heat,increasing both daytime and night-time temperatures.Statement 2 is correct as New Delhi heavily depends on groundwater beyond sustainable recharge limits.Statement 3 is incorrect because Heat Action Plans are policy frameworks recommended by NDMA; they are not legally mandated under the Disaster Management Act, 2005. 2) Aptitude (Clues) UPSC often makes statements incorrect by using words like “legally mandated” or “statutory” when the provision is only advisory. 3) PYQ Linkages UPSC Prelims 2019: Urban Heat Island effect UPSC Prelims 2020: Causes of groundwater depletion 4) Current Affairs Linkages (Exact Examples) In June 2024, Delhi recorded temperatures near 49°C, faced acute water shortages, tanker dependence, and judicial intervention on water allocation."
+    },
+    "hindi": {
+      "question": "जून 2024 में नई दिल्ली में आई भीषण हीटवेव और जल संकट के संदर्भ में निम्नलिखित कथनों पर विचार कीजिए:",
+      "statements": [
+        {
+          "text": "शहरी ऊष्मा द्वीप प्रभाव महानगरों में हीटवेव को तीव्र करता है।",
+          "image": "D:/UPSC_automation/data/images/image2.png"
+        },
+        {
+          "text": "भूजल का अत्यधिक दोहन शहरी जल संकट का एक प्रमुख कारण है।",
+          "image": "D:/UPSC_automation/data/images/image3.png"
+        },
+        {
+          "text": "हीट एक्शन प्लान आपदा प्रबंधन अधिनियम, 2005 के अंतर्गत कानूनी रूप से अनिवार्य हैं।",
+          "image": "D:/UPSC_automation/data/images/image4.png"
+        }
+      ],
+      "pairs": [],
+      "lastQuestion": "उपरोक्त में से कौन-से कथन सही हैं?",
+      "options": {
+        "A": "केवल 1 और 2",
+        "B": "केवल 2 और 3",
+        "C": "केवल 1 और 3",
+        "D": "1, 2 और 3"
+      },
+      "answer": "a",
+      "solution": "पूर्ण समाधान – हिंदी (4 खंड) 1) विस्तृत विषयवस्तु एवं अन्य विकल्प गलत क्यों हैं कथन 1 सही है क्योंकि घनी इमारतें, कंक्रीट संरचना और हरित क्षेत्र की कमी के कारण शहरों में तापमान अधिक रहता है। कथन 2 सही है क्योंकि दिल्ली में भूजल का उपयोग पुनर्भरण क्षमता से अधिक हो चुका है। कथन 3 गलत है क्योंकि हीट एक्शन प्लान नीति आधारित हैं, न कि आपदा प्रबंधन अधिनियम के अंतर्गत कानूनी रूप से बाध्यकारी। 2) एप्टीट्यूड (संकेत) UPSC में “कानूनी रूप से अनिवार्य” जैसे शब्द अक्सर कथन को गलत बना देते हैं। 3) PYQ से संबं 2019: शहरी ऊष्मा द्वीप प्रभाव 2020: भूजल ह्रास के कारण 4) समसामयिक घटनाओं से संबंध जून 2024 में दिल्ली में रिकॉर्ड तापमान, जल संकट, टैंकर निर्भरता और न्यायालयी हस्तक्षेप देखा गया।"
+    }
+  }
+]
