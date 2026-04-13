@@ -72,7 +72,7 @@ def parse_block_regex(text: str) -> dict | None:
         while i < len(lines) and not is_options(lines[i]) and not is_ans(lines[i]):
             lq_parts.append(lines[i])
             i += 1
-        lastQuestion = ' '.join(lq_parts).strip()
+        lastQuestion = extract_field(' '.join(lq_parts).strip())
     elif question_type == "pair":
         while i < len(lines) and is_pair(lines[i]):
             pair_line = re.sub(r'^Pair\s*\d+\s*:\s*', '', lines[i], flags=re.I).strip()
@@ -83,7 +83,7 @@ def parse_block_regex(text: str) -> dict | None:
         while i < len(lines) and not is_options(lines[i]) and not is_ans(lines[i]):
             lq_parts.append(lines[i])
             i += 1
-        lastQuestion = ' '.join(lq_parts).strip()
+        lastQuestion = extract_field(' '.join(lq_parts).strip())
     else:
         while i < len(lines) and not is_options(lines[i]) and not is_ans(lines[i]):
             question_lines.append(lines[i])
@@ -158,7 +158,7 @@ def parse_block_regex(text: str) -> dict | None:
         "question_image": question_field["image"],
         "statements": statements,
         "pairs": pairs,
-        "lastQuestion": lastQuestion,
+        "lastQuestion": lastQuestion if isinstance(lastQuestion, dict) else {"text": lastQuestion, "image": ""},
         "options": options,
         "options_images": options_images,
         "answer": answer,
@@ -222,7 +222,7 @@ def merge_questions(en_qs: list, hi_qs: list) -> list:
             if not q_data:
                 return {
                     "question": "", "question_image": "",
-                    "statements": [], "pairs": [], "lastQuestion": "",
+                    "statements": [], "pairs": [], "lastQuestion": {"text": "", "image": ""},
                     "options": {"A":"","B":"","C":"","D":""},
                     "options_images": {"A":"","B":"","C":"","D":""},
                     "answer": "", "solution": "", "solution_image": ""

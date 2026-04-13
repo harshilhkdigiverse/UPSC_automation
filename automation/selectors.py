@@ -32,6 +32,7 @@ SELECTORS = {
     "pair_add_btn":     "table button.bg-\\[\\#eb8844\\]",
     "add_column_btn":   "button:has-text('Add Column')",
     "en_last_question": "input[name='englishQuestion.lastQuestion']",
+    "en_last_question_img": "input[name='englishQuestion.lastQuestion'] ~ div input[type='file']",
     # Options:
     "en_option_A": "input[name='englishQuestion.options.A']",
     "en_option_A_img": "input[name='englishQuestion.options.A'] ~ div input[type='file']",
@@ -56,6 +57,7 @@ SELECTORS = {
     "hi_question_img":  "input[name='hindiQuestion.question'] ~ div input[type='file']",
 
     "hi_last_question": "input[name='hindiQuestion.lastQuestion']",
+    "hi_last_question_img": "input[name='hindiQuestion.lastQuestion'] ~ div input[type='file']",
     "hi_option_A": "input[name='hindiQuestion.options.A']",
     "hi_option_A_img": "input[name='hindiQuestion.options.A'] ~ div input[type='file']",
     "hi_option_B": "input[name='hindiQuestion.options.B']",

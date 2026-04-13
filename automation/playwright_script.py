@@ -108,14 +108,19 @@ def select_category(page, category: str):
 # Statement inputs helper
 # ---------------------------------------------------------------------------
 
-def fill_statements(page, statements: list[str], section: str = "english"):
+def fill_statements(page, statements: list, section: str = "english"):
     use_last = (section == "hindi")
     # For English, we expect 1 match across the DOM. For Hindi, we expect 2 (English + Hindi)
     expected_count = 2 if use_last else 1
 
     for idx, stmt in enumerate(statements):
         # stmt can be a string or a dict {"text": ..., "image": ...}
-        stmt_text = stmt["text"] if isinstance(stmt, dict) else stmt
+        if isinstance(stmt, dict):
+            stmt_text = stmt["text"]
+            stmt_image = stmt.get("image")
+        else:
+            stmt_text = stmt
+            stmt_image = None
         
         placeholder = f"Statement {idx + 1}"
         locator = page.locator(f"input[placeholder='{placeholder}']")
@@ -131,6 +136,24 @@ def fill_statements(page, statements: list[str], section: str = "english"):
         # Now fill the specific target (English = first, Hindi = last)
         target = locator.last if use_last else locator.first
         target.fill(stmt_text)
+
+        # Handle image for statement
+        if stmt_image:
+            img_selector = f"input[placeholder='{placeholder}'] ~ div input[type='file']"
+            # We need to pick the right one (first or last)
+            file_input = page.locator(img_selector).last if use_last else page.locator(img_selector).first
+            
+            # Since upload_file_if_present takes a selector key, we'll manually call the logic here
+            # or better, temporarily add a generic selector key.
+            # Actually, let's just use the direct locator with our upload logic.
+            abs_path = os.path.abspath(stmt_image)
+            if os.path.exists(abs_path):
+                print(f"    → Uploading statement image: {os.path.basename(abs_path)}")
+                file_input.set_input_files(abs_path)
+                file_input.dispatch_event("change")
+                file_input.dispatch_event("input")
+                page.wait_for_timeout(1000)
+                file_input.blur()
 
         page.wait_for_timeout(200)
 
@@ -206,15 +229,25 @@ def fill_english(page, q: dict):
     # Statements or Pairs
     if q_type in ("statement", "statement-csat"):
         if eng.get("statements"):
-            fill_statements(page, [s["text"] for s in eng["statements"]], section="english")
-        if eng.get("lastQuestion"):
-            page.fill(SELECTORS["en_last_question"], eng["lastQuestion"])
+            fill_statements(page, eng["statements"], section="english")
+        
+        lq = eng.get("lastQuestion")
+        if lq:
+            lq_txt = lq["text"] if isinstance(lq, dict) else lq
+            page.fill(SELECTORS["en_last_question"], lq_txt)
+            if isinstance(lq, dict) and lq.get("image"):
+                upload_file_if_present(page, "en_last_question_img", lq["image"])
             
     elif q_type == "pair":
         if eng.get("pairs"):
             fill_pairs(page, eng["pairs"], section="english")
-        if eng.get("lastQuestion"):
-            page.fill(SELECTORS["en_last_question"], eng["lastQuestion"])
+        
+        lq = eng.get("lastQuestion")
+        if lq:
+            lq_txt = lq["text"] if isinstance(lq, dict) else lq
+            page.fill(SELECTORS["en_last_question"], lq_txt)
+            if isinstance(lq, dict) and lq.get("image"):
+                upload_file_if_present(page, "en_last_question_img", lq["image"])
             
     # Options
     for letter in ("A", "B", "C", "D"):
@@ -251,15 +284,25 @@ def fill_hindi(page, q: dict):
     # Statements or Pairs
     if q_type in ("statement", "statement-csat"):
         if hi.get("statements"):
-            fill_statements(page, [s["text"] for s in hi["statements"]], section="hindi")
-        if hi.get("lastQuestion"):
-            page.fill(SELECTORS["hi_last_question"], hi["lastQuestion"])
+            fill_statements(page, hi["statements"], section="hindi")
+        
+        lq = hi.get("lastQuestion")
+        if lq:
+            lq_txt = lq["text"] if isinstance(lq, dict) else lq
+            page.fill(SELECTORS["hi_last_question"], lq_txt)
+            if isinstance(lq, dict) and lq.get("image"):
+                upload_file_if_present(page, "hi_last_question_img", lq["image"])
             
     elif q_type == "pair":
         if hi.get("pairs"):
             fill_pairs(page, hi["pairs"], section="hindi")
-        if hi.get("lastQuestion"):
-            page.fill(SELECTORS["hi_last_question"], hi["lastQuestion"])
+        
+        lq = hi.get("lastQuestion")
+        if lq:
+            lq_txt = lq["text"] if isinstance(lq, dict) else lq
+            page.fill(SELECTORS["hi_last_question"], lq_txt)
+            if isinstance(lq, dict) and lq.get("image"):
+                upload_file_if_present(page, "hi_last_question_img", lq["image"])
 
     # Options
     for letter in ("A", "B", "C", "D"):
