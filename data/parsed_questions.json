@@ -74,7 +74,7 @@
           "image": ""
         },
         {
-          "text": "test stament",
+          "text": "test statemen.",
           "image": ""
         }
       ],
@@ -239,7 +239,7 @@
       "subtopic": "judiciary",
       "category": "concept",
       "question_type": "pair",
-      "question": "Consider the following pairs:",
+      "question": "Consider the following pairs(this is hindi):",
       "question_image": "",
       "statements": [],
       "pairs": [
@@ -379,19 +379,19 @@
       "category": "concept",
       "question_type": "statement",
       "question": "जून 2024 में नई दिल्ली में आई भीषण हीटवेव और जल संकट के संदर्भ में निम्नलिखित कथनों पर विचार कीजिए:",
-      "question_image": "D:/UPSC_automation/data/images/image1.png",
+      "question_image": "",
       "statements": [
         {
           "text": "शहरी ऊष्मा द्वीप प्रभाव महानगरों में हीटवेव को तीव्र करता है।",
-          "image": "D:/UPSC_automation/data/images/image2.png"
+          "image": ""
         },
         {
           "text": "भूजल का अत्यधिक दोहन शहरी जल संकट का एक प्रमुख कारण है।",
-          "image": "D:/UPSC_automation/data/images/image3.png"
+          "image": ""
         },
         {
           "text": "हीट एक्शन प्लान आपदा प्रबंधन अधिनियम, 2005 के अंतर्गत कानूनी रूप से अनिवार्य हैं।",
-          "image": "D:/UPSC_automation/data/images/image4.png"
+          "image": ""
         }
       ],
       "pairs": [],
@@ -403,66 +403,69 @@
         "D": "1, 2 और 3"
       },
       "options_images": {
-        "A": "D:/UPSC_automation/data/images/image5.png",
-        "B": "D:/UPSC_automation/data/images/image6.png",
-        "C": "D:/UPSC_automation/data/images/image7.png",
-        "D": "D:/UPSC_automation/data/images/image8.png"
+        "A": "",
+        "B": "",
+        "C": "",
+        "D": ""
       },
       "answer": "a",
       "solution": "पूर्ण समाधान – हिंदी (4 खंड)\n1) विस्तृत विषयवस्तु एवं अन्य विकल्प गलत क्यों हैं कथन 1 सही है क्योंकि घनी इमारतें, कंक्रीट संरचना और हरित क्षेत्र की कमी के कारण शहरों में तापमान अधिक रहता है। कथन 2 सही है क्योंकि दिल्ली में भूजल का उपयोग पुनर्भरण क्षमता से अधिक हो चुका है। कथन 3 गलत है क्योंकि हीट एक्शन प्लान नीति आधारित हैं, न कि आपदा प्रबंधन अधिनियम के अंतर्गत कानूनी रूप से बाध्यकारी।\n2) एप्टीट्यूड (संकेत) UPSC में “कानूनी रूप से अनिवार्य” जैसे शब्द अक्सर कथन को गलत बना देते हैं।\n3) PYQ से संबं 2019: शहरी ऊष्मा द्वीप प्रभाव 2020: भूजल ह्रास के कारण\n4) समसामयिक घटनाओं से संबंध जून 2024 में दिल्ली में रिकॉर्ड तापमान, जल संकट, टैंकर निर्भरता और न्यायालयी हस्तक्षेप देखा गया।",
-      "solution_image": "D:/UPSC_automation/data/images/image9.png"
+      "solution_image": ""
     }
   },
   {
-    "subtopic": "judiciary",
-    "category": "concept",
+    "subtopic": "Bodies & Miscellaneous",
+    "category": "aptitude",
     "question_type": "normal-csat",
     "english": {
-      "question": "",
-      "question_image": "",
-      "statements": [],
-      "pairs": [],
-      "lastQuestion": "",
-      "options": {
-        "A": "",
-        "B": "",
-        "C": "",
-        "D": ""
-      },
-      "options_images": {
-        "A": "",
-        "B": "",
-        "C": "",
-        "D": ""
-      },
-      "answer": "",
-      "solution": "",
-      "solution_image": ""
-    },
-    "hindi": {
-      "subtopic": "judiciary",
-      "category": "concept",
+      "subtopic": "Bodies & Miscellaneous",
+      "category": "aptitude",
       "question_type": "normal-csat",
-      "question": "if n is an integer, how many values of n will give an integral value of",
+      "question": "The Upanishads are:",
       "question_image": "D:/UPSC_automation/data/images/image1.png",
       "statements": [],
       "pairs": [],
       "lastQuestion": "",
       "options": {
-        "A": ": this is a",
-        "B": ": this is b",
-        "C": ": this is c",
-        "D": ": this is d"
+        "A": "Epic poems describing kings and battles",
+        "B": "Philosophical texts that are part of the Vedic corpus",
+        "C": "Ritual manuals for temple construction",
+        "D": "Jain canonical texts"
       },
       "options_images": {
-        "A": "D:/UPSC_automation/data/images/image6.png",
-        "B": "D:/UPSC_automation/data/images/image7.png",
-        "C": "D:/UPSC_automation/data/images/image8.png",
-        "D": "D:/UPSC_automation/data/images/image10.png"
+        "A": "D:/UPSC_automation/data/images/image2.png",
+        "B": "D:/UPSC_automation/data/images/image3.png",
+        "C": "D:/UPSC_automation/data/images/image4.png",
+        "D": "D:/UPSC_automation/data/images/image5.png"
       },
-      "answer": "c",
-      "solution": "This is the solution",
-      "solution_image": "D:/UPSC_automation/data/images/image4.png"
+      "answer": "b",
+      "solution": "The Upanishads are philosophical texts forming the concluding part of the Vedas.",
+      "solution_image": "D:/UPSC_automation/data/images/image6.png"
+    },
+    "hindi": {
+      "subtopic": "Bodies & Miscellaneous",
+      "category": "aptitude",
+      "question_type": "normal-csat",
+      "question": "The Upanishads are(this is hindi):",
+      "question_image": "D:/UPSC_automation/data/images/image1.png",
+      "statements": [],
+      "pairs": [],
+      "lastQuestion": "",
+      "options": {
+        "A": "Epic poems describing kings and battles",
+        "B": "Philosophical texts that are part of the Vedic corpus",
+        "C": "Ritual manuals for temple construction",
+        "D": "Jain canonical texts"
+      },
+      "options_images": {
+        "A": "D:/UPSC_automation/data/images/image2.png",
+        "B": "D:/UPSC_automation/data/images/image3.png",
+        "C": "D:/UPSC_automation/data/images/image4.png",
+        "D": "D:/UPSC_automation/data/images/image5.png"
+      },
+      "answer": "b",
+      "solution": "The Upanishads are philosophical texts forming the concluding part of the Vedas.",
+      "solution_image": "D:/UPSC_automation/data/images/image6.png"
     }
   }
 ]

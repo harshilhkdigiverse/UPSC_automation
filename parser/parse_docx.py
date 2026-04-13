@@ -13,12 +13,17 @@ IMG_END = "[[IMG_END]]"
 def extract_field(text: str) -> dict:
     pattern = re.escape(IMG_START) + r"\s*(.*?)\s*" + re.escape(IMG_END)
     m = re.search(pattern, text, re.I)
-    if m:
-        return {
-            "text": text.replace(m.group(0), '').strip(),
-            "image": m.group(1).strip()
-        }
-    return {"text": text.strip(), "image": ""}
+    
+    # Extract only the first image path found
+    image_path = m.group(1).strip() if m else ""
+    
+    # Remove ALL instances of the image marker from the text
+    clean_text = re.sub(pattern, '', text, flags=re.I).strip()
+    
+    return {
+        "text": clean_text,
+        "image": image_path
+    }
 
 def parse_block_regex(text: str) -> dict | None:
     lines = [l.strip() for l in text.split('\n') if l.strip()]
@@ -35,7 +40,8 @@ def parse_block_regex(text: str) -> dict | None:
     meta = lines[:q_idx]
     subtopic = meta[0] if len(meta) > 0 else "Unknown"
     category = meta[1].lower() if len(meta) > 1 else "aptitude"
-    question_type = meta[2].lower() if len(meta) > 2 else "normal"
+    # Normalize question_type: lower case and replace spaces with hyphens (e.g., "Normal Csat" -> "normal-csat")
+    question_type = meta[2].lower().strip().replace(" ", "-") if len(meta) > 2 else "normal"
 
     i = q_idx
     question_lines = []

@@ -18,15 +18,32 @@ from config.config import BASE_URL, MAX_RETRIES, DELAY_BETWEEN_QUESTIONS
 
 def upload_file_if_present(page, selector_key: str, file_path: str):
     """If file_path is provided, use playwright to upload it to the input[type=file]."""
-    if not file_path or not os.path.exists(file_path):
+    if not file_path:
+        return
+        
+    abs_path = os.path.abspath(file_path)
+    if not os.path.exists(abs_path):
+        print(f"    ⚠️ Warning: File not found: {abs_path}")
         return
         
     selector = SELECTORS.get(selector_key)
     if not selector:
         return
         
-    print(f"    → Uploading image: {os.path.basename(file_path)}")
-    page.set_input_files(selector, file_path)
+    print(f"    → Uploading image: {os.path.basename(abs_path)}")
+    
+    # Target the file input
+    file_input = page.locator(selector)
+    
+    # Set the file
+    file_input.set_input_files(abs_path)
+    
+    # Manually trigger events that React/Ant-Design might be listening for
+    file_input.dispatch_event("change")
+    file_input.dispatch_event("input")
+    
+    page.wait_for_timeout(1500) # Wait for background upload/preview generation
+    file_input.blur()
     page.wait_for_timeout(500)
 
 
@@ -61,8 +78,16 @@ def select_subtopic(page, subtopic: str):
 
 def select_question_type(page, question_type: str):
     """Select the correct Question Type radio by clicking its label."""
-    key = QTYPE_SELECTOR_MAP.get(question_type.lower(), "qtype_normal")
-    page.click(SELECTORS[key])
+    q_type_key = question_type.lower().replace(" ", "-")
+    key = QTYPE_SELECTOR_MAP.get(q_type_key, "qtype_normal")
+    
+    selector = SELECTORS.get(key)
+    if not selector:
+        print(f"    ⚠️ Warning: No selector found for question type '{question_type}' (key: {key})")
+        return
+
+    print(f"    → Selecting Question Type: {question_type}")
+    page.click(selector)
     time.sleep(0.5)
 
 
@@ -169,14 +194,19 @@ def fill_english(page, q: dict):
     q_type = q.get("question_type", "Normal").lower()
 
     # Top/preamble question
-    page.fill(SELECTORS["en_question"], eng["question"])
+    q_txt = eng["question"]
+    # Safety: If text looks like a URL/Path, it shouldn't be here (indicates parsing error or wrong field)
+    if not (q_txt.startswith("http") or q_txt.startswith("C:/") or q_txt.startswith("D:/")):
+        page.fill(SELECTORS["en_question"], q_txt)
+    else:
+        print(f"    ⚠️ Warning: Skipping question text because it looks like a URL/Path: {q_txt[:50]}...")
+        
     upload_file_if_present(page, "en_question_img", eng.get("question_image"))
 
     # Statements or Pairs
     if q_type in ("statement", "statement-csat"):
         if eng.get("statements"):
             fill_statements(page, [s["text"] for s in eng["statements"]], section="english")
-            # Handle statement images? (The current selectors only target top-level fields)
         if eng.get("lastQuestion"):
             page.fill(SELECTORS["en_last_question"], eng["lastQuestion"])
             
@@ -210,7 +240,12 @@ def fill_hindi(page, q: dict):
     q_type = q.get("question_type", "Normal").lower()
 
     # Top/preamble question
-    page.fill(SELECTORS["hi_question"], hi["question"])
+    q_txt = hi["question"]
+    if not (q_txt.startswith("http") or q_txt.startswith("C:/") or q_txt.startswith("D:/")):
+        page.fill(SELECTORS["hi_question"], q_txt)
+    else:
+        print(f"    ⚠️ Warning: Skipping Hindi question text because it looks like a URL/Path: {q_txt[:50]}...")
+        
     upload_file_if_present(page, "hi_question_img", hi.get("question_image"))
 
     # Statements or Pairs
@@ -262,14 +297,14 @@ def submit_question(page):
     if box:
         page.mouse.move(box["x"] + box["width"] / 2, box["y"] + box["height"] / 2)
         page.mouse.down()
-        page.wait_for_timeout(50)
+        page.wait_for_timeout(30)
         page.mouse.up()
     else:
         # Fallback if somehow it's not laid out
         save_btn.click(force=True)
     
     # The website redirects to the Subject Details Dashboard after saving.
-    page.wait_for_timeout(3000)
+    page.wait_for_timeout(1000)
     
     print("    → Waiting for Dashboard redirect...")
     # Click 'Create New Question' on the dashboard to start the next question
@@ -277,7 +312,7 @@ def submit_question(page):
     new_q_btn.click()
     
     # Wait for the fresh form to load
-    page.wait_for_timeout(2000)
+    page.wait_for_timeout(1500)
 
 
 # ---------------------------------------------------------------------------
