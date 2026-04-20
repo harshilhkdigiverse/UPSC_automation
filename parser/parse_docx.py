@@ -29,9 +29,12 @@ def parse_block_regex(text: str) -> dict | None:
     lines = [l.strip() for l in text.split('\n') if l.strip()]
     if len(lines) < 4: return None
 
+    q_marker = r'(?:\(\d+\)|\d+\s*[\.\)\:])'
+    pattern = re.escape(IMG_START) + r'.*?' + re.escape(IMG_END) + r'\s*' + q_marker + r'|^' + q_marker
+    
     q_idx = -1
     for idx, line in enumerate(lines):
-        if re.match(r'^(?:' + re.escape(IMG_START) + r'.*?' + re.escape(IMG_END) + r'\s*)?\(\d+\)', line):
+        if re.match(pattern, line):
             q_idx = idx
             break
     
@@ -45,17 +48,50 @@ def parse_block_regex(text: str) -> dict | None:
 
     i = q_idx
     question_lines = []
-    first_q_line = re.sub(r'^\(\d+\)\s*', '', lines[i]).strip()
+    # Remove question marker like (1) or 1.
+    first_q_line = re.sub(r'^(?:' + re.escape(IMG_START) + r'.*?' + re.escape(IMG_END) + r'\s*)?(?:\(\d+\)|\d+\s*[\.\)\:])\s*', '', lines[i]).strip()
     question_lines.append(first_q_line)
     i += 1
 
-    is_options = lambda s: bool(re.match(r'^(?:\([a-dA-D]\)|[A-D]\s*:)', s, re.I))
-    is_pair = lambda s: bool(re.match(r'^Pair\s*\d+\s*:', s, re.I))
-    is_stmt = lambda s: bool(re.match(r'^\d+\.', s, re.I))
+    is_options = lambda s: bool(re.match(r'^(?:\([a-dA-D]\)|[A-D]\s*[:\)])', s, re.I))
+    is_pair = lambda s: bool(re.match(r'^(?:Pair\s*\d+\s*:|.*?\s*=\s*.*)', s, re.I))
+    is_stmt = lambda s: bool(re.match(r'^\d+\s*[\.\)]', s, re.I))
     is_ans = lambda s: bool(re.search(r'Answer\s*:', s, re.I))
     is_sol = lambda s: bool(re.search(r'Solution\s*:', s, re.I))
 
-    while i < len(lines) and not is_options(lines[i]) and not is_pair(lines[i]) and not is_stmt(lines[i]) and not is_ans(lines[i]):
+    # 1. Question text starts at q_idx
+    # We want to separate the main question text from statements/pairs.
+    
+    # Trigger patterns
+    stmt_trigger = r'consider\b.*?statements|निम्नलिखित\b.*?कथन'
+    pair_trigger = r'consider\b.*?pairs|निम्नलिखित\b.*?युग्म'
+    lq_trigger = r'(?:Which|Correct|Choose|Incorrect)\b.*?(?:statements|pairs|option|options)\b.*?(?:correct|true|false|matches|matching)|उपरोक्त\b.*?(?:कथन|युग्म)\b.*?(?:सही|गलत|कितने)'
+
+    i = q_idx
+    question_lines = []
+    
+    # First line (with number)
+    first_q_line = re.sub(r'^(?:' + re.escape(IMG_START) + r'.*?' + re.escape(IMG_END) + r'\s*)?(?:\(\d+\)|\d+\.)\s*', '', lines[i]).strip()
+    question_lines.append(first_q_line)
+    i += 1
+
+    # Logic to collect question text until statements or options
+    is_stmt_mode = "statement" in question_type
+    is_pair_mode = "pair" in question_type
+
+    while i < len(lines):
+        if is_options(lines[i]) or is_ans(lines[i]): break
+        
+        # If we see a statement-like number (1., 2.), and we are in statement mode,
+        # it might be the start of statements. 
+        # But we also look for the "Consider the following..." header.
+        if is_stmt_mode and (is_stmt(lines[i]) or re.search(stmt_trigger, question_lines[-1], re.I)):
+             if not re.search(stmt_trigger, lines[i], re.I): # Don't break if this line IS the trigger
+                break
+        if is_pair_mode and (is_pair(lines[i]) or re.search(pair_trigger, question_lines[-1], re.I)):
+            if not re.search(pair_trigger, lines[i], re.I):
+                break
+
         question_lines.append(lines[i])
         i += 1
 
@@ -63,21 +99,26 @@ def parse_block_regex(text: str) -> dict | None:
     pairs = []
     lastQuestion = ""
 
-    if "statement" in question_type:
-        while i < len(lines) and is_stmt(lines[i]):
-            stmt_text = re.sub(r'^\d+\.\s*', '', lines[i]).strip()
-            statements.append(extract_field(stmt_text))
+    if is_stmt_mode:
+        while i < len(lines) and not is_options(lines[i]) and not is_ans(lines[i]) and not re.search(lq_trigger, lines[i], re.I):
+            text = re.sub(r'^\d+[\.\)]\s*', '', lines[i]).strip()
+            if text: statements.append(extract_field(text))
             i += 1
         lq_parts = []
         while i < len(lines) and not is_options(lines[i]) and not is_ans(lines[i]):
             lq_parts.append(lines[i])
             i += 1
         lastQuestion = extract_field(' '.join(lq_parts).strip())
-    elif question_type == "pair":
-        while i < len(lines) and is_pair(lines[i]):
-            pair_line = re.sub(r'^Pair\s*\d+\s*:\s*', '', lines[i], flags=re.I).strip()
-            row = [extract_field(p.strip()) for p in re.split(r'\s*=\s*', pair_line)]
-            pairs.append(row)
+    elif is_pair_mode:
+        while i < len(lines) and not is_options(lines[i]) and not is_ans(lines[i]) and not re.search(lq_trigger, lines[i], re.I):
+            # Check if it's a pair line (contains =)
+            if '=' in lines[i]:
+                row = [extract_field(p.strip()) for p in re.split(r'\s*=\s*', lines[i])]
+                if len(row) >= 2: pairs.append(row)
+            else:
+                # If not a pair line but in pair mode, might be a header or leftover text
+                # For now just skip or add to question? Let's skip.
+                pass
             i += 1
         lq_parts = []
         while i < len(lines) and not is_options(lines[i]) and not is_ans(lines[i]):
@@ -85,9 +126,8 @@ def parse_block_regex(text: str) -> dict | None:
             i += 1
         lastQuestion = extract_field(' '.join(lq_parts).strip())
     else:
-        while i < len(lines) and not is_options(lines[i]) and not is_ans(lines[i]):
-            question_lines.append(lines[i])
-            i += 1
+        # Normal type: question text already collected until options
+        pass
 
     question_field = extract_field('\n'.join(question_lines))
 
@@ -152,7 +192,7 @@ def parse_block_regex(text: str) -> dict | None:
 
     return {
         "subtopic": subtopic,
-        "category": category,
+        "category": category if category != "aptitude" else "concept",
         "question_type": question_type,
         "question": question_field["text"],
         "question_image": question_field["image"],
@@ -196,19 +236,73 @@ def parse_docx_file(file_path: str) -> list:
         for sl in p_text.split('\n'):
             if sl.strip(): lines.append(sl.strip())
 
+    # Hybrid block detection
     block_starts = []
+    
+    # 1. Triplet-based detection
+    triplet_starts = set()
+    for j in range(1, len(lines)):
+        l_j = lines[j].lower()
+        l_j_prev = lines[j-1].lower()
+        if (l_j == "normal" or l_j == "statement" or l_j == "pair") and "concept" in l_j_prev:
+            triplet_starts.add(max(0, j - 2))
+    
+    # 2. Sequential/Contextual detection
+    # Any line matching the question marker that follows a solution block
+    q_marker_re = r'(?:' + re.escape(IMG_START) + r'.*?' + re.escape(IMG_END) + r'\s*)?(?:\(\d+\)|(\d+)\s*[\.\)\:])'
+    
+    last_q_val = 0
+    in_solution = False
+    
     for i, line in enumerate(lines):
-        if re.match(r'^(?:' + re.escape(IMG_START) + r'.*?' + re.escape(IMG_END) + r'\s*)?\(\d+\)', line):
-            block_starts.append(max(0, i - 3))
+        # Triplet always wins
+        if i in triplet_starts:
+            block_starts.append(i)
+            # Find the number in this block to keep sequence
+            for k in range(i, min(i+10, len(lines))):
+                m = re.match(q_marker_re, lines[k])
+                if m and m.group(1):
+                    last_q_val = int(m.group(1))
+                    break
+            in_solution = False
+            continue
+            
+        # Check for solution marker
+        if "answer:" in line.lower() or "solution:" in line.lower() or "विकल्प" in line or "सही है" in line:
+            in_solution = True
+            
+        # Check for question number fallback
+        m = re.match(q_marker_re, line)
+        if m:
+            q_val_str = m.group(1)
+            if q_val_str:
+                q_val = int(q_val_str)
+                # It's a new question if it's the next in sequence or follows a solution
+                if (q_val == last_q_val + 1) or (in_solution and q_val > last_q_val):
+                    # Only add if not already captured by a nearby triplet
+                    is_new = True
+                    for s in block_starts:
+                        if abs(s - i) < 10:
+                            is_new = False
+                            break
+                    if is_new:
+                        block_starts.append(i)
+                        last_q_val = q_val
+                        in_solution = False
+
+    # Filter and refine: each block must contain a question number
+    final_block_starts = sorted(list(set(block_starts)))
     
     questions = []
-    for idx in range(len(block_starts)):
-        start = block_starts[idx]
-        end = block_starts[idx+1] if idx+1 < len(block_starts) else len(lines)
+    for idx in range(len(final_block_starts)):
+        start = final_block_starts[idx]
+        end = final_block_starts[idx+1] if idx+1 < len(final_block_starts) else len(lines)
         q = parse_block_regex('\n'.join(lines[start:end]))
         if q:
             nq = normalise(q)
             if nq: questions.append(nq)
+            
+    print(f"Parsed {len(questions)} questions from {os.path.basename(file_path)}")
     return questions
 
 def merge_questions(en_qs: list, hi_qs: list) -> list:
@@ -217,27 +311,49 @@ def merge_questions(en_qs: list, hi_qs: list) -> list:
     for i in range(max_len):
         en_q = en_qs[i] if i < len(en_qs) else None
         hi_q = hi_qs[i] if i < len(hi_qs) else None
+        
+        # Definitive metadata from English
         ref = en_q or hi_q
-        def build_side(q_data):
+        subtopic = ref.get("subtopic", "Unknown")
+        category = ref.get("category", "concept")
+        if category == "aptitude": category = "concept"
+        q_type = ref.get("question_type", "normal")
+
+        def build_side(q_data, definitive_meta):
             if not q_data:
                 return {
+                    "subtopic": definitive_meta["subtopic"],
+                    "category": definitive_meta["category"],
+                    "question_type": definitive_meta["type"],
                     "question": "", "question_image": "",
                     "statements": [], "pairs": [], "lastQuestion": {"text": "", "image": ""},
                     "options": {"A":"","B":"","C":"","D":""},
                     "options_images": {"A":"","B":"","C":"","D":""},
                     "answer": "", "solution": "", "solution_image": ""
                 }
+            # Sync metadata
+            q_data["subtopic"] = definitive_meta["subtopic"]
+            q_data["category"] = definitive_meta["category"]
+            q_data["question_type"] = definitive_meta["type"]
             return q_data
+
+        meta_bundle = {"subtopic": subtopic, "category": category, "type": q_type}
+        
         merged.append({
-            "subtopic": ref["subtopic"],
-            "category": ref["category"],
-            "question_type": ref["question_type"],
-            "english": build_side(en_q),
-            "hindi": build_side(hi_q)
+            "subtopic": subtopic,
+            "category": category,
+            "question_type": q_type,
+            "english": build_side(en_q, meta_bundle),
+            "hindi": build_side(hi_q, meta_bundle)
         })
     return merged
 
 def main():
+    # Ensure the script runs from the project root
+    script_path = os.path.abspath(__file__)
+    project_root = os.path.dirname(os.path.dirname(script_path))
+    os.chdir(project_root)
+    
     os.makedirs("data", exist_ok=True)
     en = parse_docx_file("data/english.docx")
     hi = parse_docx_file("data/hindi.docx")

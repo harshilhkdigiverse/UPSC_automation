@@ -2,7 +2,7 @@ SELECTORS = {
     # -----------------------------------------------------------------------
     # Subtopic — React Select
     # -----------------------------------------------------------------------
-    "subtopic_input": "input[id^='react-select']",
+    "subtopic_input": "input[id^='react-select-2-live-region']",
 
     # -----------------------------------------------------------------------
     # Question Type — radio buttons (click LABEL to avoid span overlay)
@@ -35,7 +35,7 @@ SELECTORS = {
     "en_last_question_img": "input[name='englishQuestion.lastQuestion'] ~ div input[type='file']",
     # Options:
     "en_option_A": "input[name='englishQuestion.options.A']",
-    "en_option_A_img": "input[name='englishQuestion.options.A'] ~ div input[type='file']",
+    "en_option_A_img": "input[name='englishQuestion.options.A'] ~ div input[type='file']",  
     "en_option_B": "input[name='englishQuestion.options.B']",
     "en_option_B_img": "input[name='englishQuestion.options.B'] ~ div input[type='file']",
     "en_option_C": "input[name='englishQuestion.options.C']",

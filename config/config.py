@@ -1,4 +1,4 @@
-BASE_URL = "https://classes.bharatexamfest.com/addQuestion"
+BASE_URL = "https://admin.bharatexamfest.com/login"
 
 MAX_RETRIES = 3
 DELAY_BETWEEN_QUESTIONS = 2  # seconds between questions
