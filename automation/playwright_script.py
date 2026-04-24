@@ -62,14 +62,37 @@ def load_questions() -> list:
 
 def select_subtopic(page, subtopic: str):
     """Click the React Select input, type the subtopic, and confirm with Enter."""
-    input_el = page.locator(SELECTORS["subtopic_input"]).first
-    input_el.click()
-    time.sleep(0.3)
-    input_el.fill("")
-    input_el.type(subtopic, delay=40)
-    time.sleep(1)            # wait for dropdown to render
+    selector = SELECTORS["subtopic_input"]
+    print(f"    → Selecting Subtopic: {subtopic}")
+    
+    # Wait for at least one React-Select input to be available in the DOM
+    page.wait_for_selector(selector, state="attached", timeout=10000)
+    
+    # Grab all react-select inputs. Subject is [0], Subtopic is [1].
+    inputs = page.locator(selector).all()
+    if len(inputs) > 1:
+        input_el = inputs[1]  # The second box on the page is Subtopic
+    else:
+        input_el = inputs[0]  # Fallback if Subject isn't interactable/present
+
+    # Ensure it's in view
+    input_el.scroll_into_view_if_needed()
+    
+    # Focus the element directly. This bypasses strict visibility/overlay checks
+    input_el.focus()
+    page.wait_for_timeout(300)
+    
+    # Fallback to a forced click to ensure the browser has set focus
+    input_el.click(force=True)
+    page.wait_for_timeout(300)
+    
+    # Type out the text simulating real keystrokes into whatever has focus
+    page.keyboard.type(subtopic, delay=50)
+    
+    # Wait for the dropdown to show the result and press Enter
+    page.wait_for_timeout(1000)
     page.keyboard.press("Enter")
-    time.sleep(0.5)
+    page.wait_for_timeout(500)
 
 
 # ---------------------------------------------------------------------------
@@ -110,11 +133,13 @@ def select_category(page, category: str):
 
 def fill_statements(page, statements: list, section: str = "english"):
     use_last = (section == "hindi")
-    # For English, we expect 1 match across the DOM. For Hindi, we expect 2 (English + Hindi)
-    expected_count = 2 if use_last else 1
-
+    
+    # Isolate the section wrapper to avoid mixing English and Hindi statement counts
+    # The 'Subject' word is near the top of the form. The easiest way to isolate Hindi section 
+    # is to slice the DOM. But since Playwright accesses the active DOM, we can use 
+    # the Add Statement buttons as anchor points.
+    
     for idx, stmt in enumerate(statements):
-        # stmt can be a string or a dict {"text": ..., "image": ...}
         if isinstance(stmt, dict):
             stmt_text = stmt["text"]
             stmt_image = stmt.get("image")
@@ -125,29 +150,34 @@ def fill_statements(page, statements: list, section: str = "english"):
         placeholder = f"Statement {idx + 1}"
         locator = page.locator(f"input[placeholder='{placeholder}']")
 
-        # Dynamically check if the statement box already exists on the page.
-        # If it doesn't, we click '+' until it spawns.
-        while locator.count() < expected_count:
+        # Keep clicking adding statement until we can successfully target the input
+        while True:
+            target = locator.last if use_last else locator.first
+            
+            # If the specific target we need exists, we break!
+            # (If English had 0 statements, count will be 1, but 'target' will resolve to it successfully)
+            if locator.count() >= (2 if use_last else 1) or (use_last and locator.count() >= 1 and target.count() > 0):
+                # We have what we need, break immediately
+                break
+                
             add_btn = page.locator(SELECTORS["stmt_add_btn"])
+            if add_btn.count() == 0:
+                print("    ⚠️ Warning: Could not find 'Add Statement' button.")
+                break
+                
             btn_target = add_btn.last if use_last else add_btn.first
             btn_target.click()
-            page.wait_for_timeout(1000) # Give React time to render the new input box
+            page.wait_for_timeout(1000)
 
-        # Now fill the specific target (English = first, Hindi = last)
         target = locator.last if use_last else locator.first
-        target.fill(stmt_text)
+        if target.count() > 0:
+            target.fill(str(stmt_text), force=True)
 
-        # Handle image for statement
         if stmt_image:
             img_selector = f"input[placeholder='{placeholder}'] ~ div input[type='file']"
-            # We need to pick the right one (first or last)
             file_input = page.locator(img_selector).last if use_last else page.locator(img_selector).first
-            
-            # Since upload_file_if_present takes a selector key, we'll manually call the logic here
-            # or better, temporarily add a generic selector key.
-            # Actually, let's just use the direct locator with our upload logic.
             abs_path = os.path.abspath(stmt_image)
-            if os.path.exists(abs_path):
+            if os.path.exists(abs_path) and file_input.count() > 0:
                 print(f"    → Uploading statement image: {os.path.basename(abs_path)}")
                 file_input.set_input_files(abs_path)
                 file_input.dispatch_event("change")
@@ -163,10 +193,6 @@ def fill_pairs(page, pairs: list, section: str = "english"):
     if N == 0:
         return
     
-    # English inputs are indices 0 to N-1. Hindi inputs are indices N to 2N-1.
-    offset = N if use_last else 0
-
-    # Ensure format is a list of lists representing columns (backward compatible with dicts)
     clean_pairs = []
     for p in pairs:
         if isinstance(p, dict):
@@ -176,35 +202,62 @@ def fill_pairs(page, pairs: list, section: str = "english"):
             
     max_cols = max((len(row) for row in clean_pairs), default=2)
 
-    # Ensure adequate columns exist (Default assumes pair1 and pair2 already exist)
-    for col_idx in range(3, max_cols + 1):
-        col_locator = page.locator(f"input[placeholder='pair{col_idx}']")
-        while col_locator.count() < (offset + 1):
-            add_col_btn = page.locator(SELECTORS["add_column_btn"])
-            target_btn = add_col_btn.last if use_last else add_col_btn.first
-            target_btn.click()
+    # Wait for the table to render after the Pair radio button was clicked
+    try:
+        page.wait_for_selector("table", state="attached", timeout=5000)
+    except Exception:
+        pass
+
+    tables = page.locator("table").all()
+    if not tables:
+        print("    ⚠️ Warning: No table found for pair inputs!")
+        return
+    
+    # We assume first table is English, last is Hindi
+    target_table = tables[-1] if use_last else tables[0]
+
+    # Add columns if needed
+    first_row_inputs = target_table.locator("tr").first.locator("input")
+    while first_row_inputs.count() > 0 and first_row_inputs.count() < max_cols:
+        add_col_btn = page.locator(SELECTORS.get("add_column_btn", "button:has-text('Add Column')"))
+        if add_col_btn.count() > 0:
+            btn_td = add_col_btn.last if use_last else add_col_btn.first
+            btn_td.click()
             page.wait_for_timeout(1000)
+        else:
+            break
 
-    left_locator = page.locator("input[placeholder='pair1']")
-
-    for idx, row_data in enumerate(clean_pairs):
-        required_rows = offset + idx + 1
-        while left_locator.count() < required_rows:
-            add_btn = page.locator(SELECTORS["pair_add_btn"])
-            btn_target = add_btn.last if use_last else add_btn.first
-            btn_target.click()
-            page.wait_for_timeout(1000)
-
-        # Fill dynamically for each column
-        current_index = offset + idx
-        for col_i, cell in enumerate(row_data):
-            # cell can be string or dict {"text": ..., "image": ...}
-            cell_text = cell["text"] if isinstance(cell, dict) else cell
-            col_id = col_i + 1
-            col_loc = page.locator(f"input[placeholder='pair{col_id}']")
-            col_loc.nth(current_index).fill(cell_text)
+    # Add rows if needed. Count rows that actually have inputs.
+    while True:
+        data_rows = target_table.locator("tr:has(input)").all()
+        if len(data_rows) >= len(clean_pairs):
+            break
+            
+        add_btn = page.locator(SELECTORS["pair_add_btn"])
+        if add_btn.count() == 0:
+            print("    ⚠️ Warning: Could not find add pair button.")
+            break
+            
+        btn_target = add_btn.last if use_last else add_btn.first
+        btn_target.click()
+        page.wait_for_timeout(1000)
         
-        page.wait_for_timeout(200)
+    # Now fill data
+    data_rows = target_table.locator("tr:has(input)").all()
+    for idx, row_data in enumerate(clean_pairs):
+        if idx < len(data_rows):
+            inputs = data_rows[idx].locator("input").all()
+            for col_i, cell in enumerate(row_data):
+                cell_text = cell["text"] if isinstance(cell, dict) else cell
+                if col_i < len(inputs):
+                    # Force fill to avoid strict actionability blocks
+                    inputs[col_i].fill(str(cell_text), force=True)
+                else:
+                    print(f"    ⚠️ Warning: Not enough columns in row {idx} for cell {col_i}")
+        else:
+            print(f"    ⚠️ Warning: Row {idx} not found in table.")
+
+    page.wait_for_timeout(200)
 
 
 
@@ -335,27 +388,16 @@ def submit_question(page):
     save_btn = page.locator(SELECTORS["save_button"])
     save_btn.scroll_into_view_if_needed()
     
-    # Move mouse to the exact center of the button and physically click it
-    box = save_btn.bounding_box()
-    if box:
-        page.mouse.move(box["x"] + box["width"] / 2, box["y"] + box["height"] / 2)
-        page.mouse.down()
-        page.wait_for_timeout(30)
-        page.mouse.up()
-    else:
-        # Fallback if somehow it's not laid out
-        save_btn.click(force=True)
+    save_btn.click(force=True)
     
-    # The website redirects to the Subject Details Dashboard after saving.
-    page.wait_for_timeout(1000)
-    
-    print("    → Waiting for Dashboard redirect...")
-    # Click 'Create New Question' on the dashboard to start the next question
-    new_q_btn = page.locator(SELECTORS["new_question"])
-    new_q_btn.click()
-    
-    # Wait for the fresh form to load
-    page.wait_for_timeout(1500)
+    print("    → Waiting for save to process...")
+    try:
+        # Wait up to 10 seconds for the browser to redirect away from the 'addQuestion' page
+        page.wait_for_url(lambda url: "addQuestion" not in url, timeout=10000)
+    except Exception:
+        # User requested to hard-fail and restart the entire question if the redirect doesn't happen
+        raise PlaywrightTimeoutError("Dashboard redirect did not occur. Save likely failed.")
+
 
 
 # ---------------------------------------------------------------------------
@@ -380,6 +422,11 @@ def run():
     success, failed = [], []
     total = len(questions)
 
+    # Reset/Initialize the failed indices log
+    os.makedirs("logs", exist_ok=True)
+    with open("logs/failed_indices.txt", "w", encoding="utf-8") as f:
+        f.write("--- FAILED QUESTIONS LOG ---\n")
+
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=False)
         context = browser.new_context()
@@ -387,13 +434,25 @@ def run():
 
         page.goto(BASE_URL)
 
-        print("\n👉 Please login manually in the browser, then press ENTER here...")
-        input()
+        print("\n👉 Please login manually in the browser.")
+        print("👉 Go to the Dashboard and find the 'Add Question' button for your target subject.")
+        print("👉 Right-click it and select 'Copy link address' (or click it and copy URL from new window).")
+        
+        add_url = ""
+        while not add_url or "addQuestion" not in add_url:
+            add_url = input("\n👉 Paste the full 'Add Question' URL here and press ENTER: ").strip()
 
         for idx, q in enumerate(questions):
             label = f"[{idx+1}/{total}] {q.get('subtopic','?')} | {q.get('question_type','?')}"
             print(f"\n{label}")
             submitted = False
+
+            # ALWAYS load a fresh instance using the direct URL before starting a NEW question
+            # This handles the dashboard redirect from the previous successful question
+            print("    → Loading Add Question form...")
+            page.goto(add_url)
+            page.wait_for_load_state("domcontentloaded")
+            page.wait_for_timeout(1000)
 
             for attempt in range(MAX_RETRIES):
                 try:
@@ -409,12 +468,21 @@ def run():
                     traceback.print_exc()
 
                 if attempt < MAX_RETRIES - 1:
-                    print(f"  🔄 Retrying in 3s...")
+                    print(f"  🔄 Retrying in 3s without refreshing...")
                     time.sleep(3)
 
             if not submitted:
                 print(f"  ❌ Failed after {MAX_RETRIES} attempts. Skipping.")
                 failed.append(q)
+                # Immediately save to failed.json
+                os.makedirs("logs", exist_ok=True)
+                with open("logs/failed.json", "w", encoding="utf-8") as f:
+                    json.dump(failed, f, indent=2, ensure_ascii=False)
+                
+                # ALSO write the question index to a text file for easy reading
+                with open("logs/failed_indices.txt", "a", encoding="utf-8") as f:
+                    # idx starts at 0, so idx+1 is the human-readable question number
+                    f.write(f"Question {idx+1} failed ({q.get('subtopic', 'Unknown')})\n")
 
             time.sleep(DELAY_BETWEEN_QUESTIONS)
 

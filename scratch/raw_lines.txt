@@ -1,0 +1,742 @@
+--- data/english.docx (First 200 lines) ---
+  0: Centre-State Relations & LSG 
+Concept
+  1: Statement 
+
+(1)  Consider the following statements regarding Cooperatives in India:
+  2: Cooperative societies were given constitutional status by the 97th Amendment.
+  3: Cooperative societies are mentioned under Article 19(1)(c).
+  4: Which of the statements given above is/are correct?
+  5: 1 only
+  6: (b) 2 only
+(c) Both 1 and 2
+  7: (d) Neither 1 nor 2
+  8: Answer: (c)
+  9: Solution:
+ 10: Statement 1 =Correct —
+ The 97th Constitutional Amendment Act, 2011 granted constitutional status to cooperative societies by inserting Part IXB (Articles 243ZH–243ZT) and introducing Article 43B as a Directive Principle. It aimed to ensure democratic functioning, autonomy, and professional management of cooperatives. However, the Supreme Court later limited its application to multi=state cooperatives, as states’ powers over cooperatives could not be overridden without ratification.
+ 11: Statement 2 =Correct —
+ Article 19(1)(c) was amended to include the right to form cooperative societies as a Fundamental Right. This places cooperatives alongside associations and unions, strengthening citizens’ ability to organize collectively for economic and social purposes.
+ 12: Conclusion
+ 13: Both statements correctly reflect constitutional provisions related to cooperatives.
+ 14: Centre=State Relations & LSG 
+Concept
+ 15: Statement
+ 16: (2) Consider the following statements:
+ 17: Lokpal was established under an Act of Parliament
+ 18: Lokpal has constitutional status
+ 19: Lokpal includes Prime Minister with exceptions
+ 20: Which of the statements given above is/are correct?
+ (a) 1 and 3 only
+ (b) 2 and 3 only
+ (c) 1 only
+ (d) 1, 2 and 3
+ 21: Answer: (a)
+ 22: Solution
+ 23: Statement 1 =Correct —
+ Lokpal and Lokayuktas Act, 2013 established the Lokpal through an Act of Parliament.
+ 24: Statement 2 =False —
+ Lokpal does not have constitutional status; it is a statutory body.
+ 25: Statement 3 =Correct —
+ Lokpal has jurisdiction over the Prime Minister with certain exceptions (e.g., matters related to national security, foreign relations, etc.).
+ 26: Centre=State Relations & LSG 
+Concept
+ 27: Pair
+
+(3) Match the following Bodies with their Nature:
+ 28: List I (Body)=List II (Nature)
+ 29: NITI Aayog=Statutory body
+ 30: Lokpal=Constitutional body
+ 31: Election Commission of India=Executive body
+ 32: Select the correct answer using the code given below:
+ 33: (a) 1–A, 2–B, 3–C
+(b) 1–B, 2–C, 3–A
+(c) 1–A, 2–C, 3–B
+ 34: (d) 1–C, 2–A, 3–B
+ 35: Answer: (d) 1–C, 2–A, 3–B
+ 36: Solution
+ 37: NITI Aayog =Executive body =Correct —
+ NITI Aayog is an executive body created by a government resolution.
+ 38: Lokpal =Statutory body =Correct —
+ Lokpal is a statutory body established by an Act of Parliament.
+ 39: Election Commission of India =Constitutional body =Correct —
+ Election Commission of India is a constitutional body under Article 324.
+ 40: Centre=State Relations & LSG 
+Concept
+ 41: Statement
+ 42: (4) Consider the following statements:
+ 43: 1.Internet shutdowns can be imposed under Telegraph Act
+ 44: 2.Grounds are clearly defined in the Act
+ 45: Which of the statements given above is/are correct?
+ (a) 1 only
+ (b) 2 only
+ (c) Both
+ (d) Neither
+ 46: Answer: (a)
+ 47: Solution
+ 48: Statement 1 =Correct —
+ Indian Telegraph Act, 1885 provides the legal basis under which internet shutdowns can be imposed (via rules framed under it).
+ 49: Statement 2 =False —
+ The grounds are not clearly defined in the Act itself; they are broadly interpreted and detailed through rules and executive orders.
+ 50: Economy Miscellaneous 
+Concept
+ 51: Normal
+
+(5) CBDC is issued by:
+
+(a) SEBI
+(b) RBI
+(c) IMF
+(d) World Bank
+ 52: Answer: (b)
+ 53: Solution
+ 54: (a) SEBI =False —
+ Securities and Exchange Board of India regulates securities markets, not currency issuance.
+ 55: (b) RBI =Correct —
+ Reserve Bank of India issues CBDC (Central Bank Digital Currency) as part of India’s monetary system.
+ 56: (c) IMF =False —
+ International Monetary Fund does not issue national digital currencies.
+ 57: (d) World Bank =False —
+ World Bank provides financial assistance, not currency issuance.
+ 58: Correct Answer: (b) RBI
+ 59: Macro Fundamentals, GDP, Investment, Growth 
+Concept
+ 60: Statement 
+
+(6) Consider the following:
+ 61: 1.Rupee depreciation increases import cost
+ 62: 2.WPI measures retail inflation
+ 63: 3.HCES measures consumption
+ 64: Which of the statements given above is/are correct?
+(a) 1 and 3 only
+(b) 2 only
+(c) 1, 2 and 3
+(d) 1 only
+ 65: Answer: (a)
+ 66: Solution
+ 67: Statement 1 =Correct —
+ Rupee depreciation makes imports more expensive, as more rupees are required to buy foreign currency, increasing import costs.
+ 68: Statement 2 =Incorrect —
+ Wholesale Price Index measures wholesale inflation, not retail inflation (which is measured by CPI).
+ 69: Statement 3 =Correct —
+ Household Consumption Expenditure Survey measures consumption patterns and expenditure of households.
+ 70: Conclusion
+ 71: Statements 1 and 3 are correct, while Statement 2 is incorrect.
+ 72: Correct Answer: (a) 1 and 3 only
+ 73: International Organizations 
+Concept
+ 74: Pair
+
+(7) Match the following Institutions with their Functions:
+ 75: List I (Institution)=List II (Function)
+ 76: 1. World Health Organization	=A. Global health governance
+ 77: 2. International Monetary Fund=B. International monetary stability
+ 78: 3. World Trade Organization=C. Trade regulation
+ 79: Select the correct answer using the code given below:
+ 80: (a) 1–A, 2–C, 3–B
+ (b) 1–B, 2–A, 3–C
+ (c) 1–A, 2–B, 3–C
+ (d) 1–C, 2–A, 3–B
+ 81: Solution
+ 82: 1–A (WHO =Global health governance) =Correct —
+ World Health Organization is responsible for global health governance.
+ 83: 2–B (IMF =International monetary stability) =Correct —
+ International Monetary Fund ensures international monetary stability and financial cooperation.
+ 84: 3–C (WTO =Trade regulation) =Correct —
+ World Trade Organization regulates international trade rules.
+ 85: Correct Answer: (c) 1–A, 2–B, 3–C
+ 86: Env Energy 
+Concept
+ 87: Statement 
+
+(8) Consider the following:
+ 88: 1.IMD completed 150 years
+ 89: 2.Glaciers are shrinking
+ 90: 3.Hydrogen trains use fossil fuels
+ 91: 4.Thermal plants emit SO₂
+ 92: Which of the statements given above is/are correct?
+ (a) 1, 2 and 4 only
+ (b) 2 and 3 only
+ (c) 1 and 3 only
+ (d) All
+ 93: Answer: (a)
+ 94: Solution
+ 95: Statement 1 =Correct —
+ India Meteorological Department completed 150 years of service.
+ 96: Statement 2 =Correct —
+ Glaciers are shrinking globally due to climate change and rising temperatures.
+ 97: Statement 3 =False —
+ Hydrogen trains use hydrogen fuel (clean energy), not fossil fuels.
+ 98: Statement 4 =Correct —
+ Thermal power plants emit sulphur dioxide (SO₂), contributing to air pollution.
+ 99: Correct Answer: (a) 1, 2 and 4 only
+100: Infrastructure & Industries 
+Concept
+101: Statement
+102: (9) Consider the following statements regarding Cooperative Banks:
+103: 1.They are regulated by RBI.
+104: 2.They are registered under State Cooperative Societies Acts.
+105: 3.They are not allowed to issue shares.
+106: Which of the statements given above are correct?
+107: (a) 1 only
+(b) 1 and 2 only
+(c) 2 and 3 only
+(d) All three
+108: Answer: (b)
+109: Solution
+110: Statement 1 =Correct —
+ Reserve Bank of India regulates cooperative banks in terms of banking operations (like licensing, liquidity, and prudential norms), along with NABARD in some cases.
+111: Statement 2 =Correct —
+ Cooperative banks are registered under State Cooperative Societies Acts (or Multi=State Cooperative Societies Act for those operating across states), reflecting their cooperative structure.
+112: Statement 3 =Incorrect —
+ Cooperative banks can issue shares, but only to their members (not freely tradable like company shares). Hence, saying they are not allowed to issue shares is incorrect.
+113: Conclusion
+114: Statements 1 and 2 are correct, while Statement 3 is incorrect.
+115: Biotechnology 
+Concept
+116: Normal
+
+(10) Genome India Project is related to:
+
+ (a) Climate change
+ (b) Genetic mapping
+ (c) Space research
+ (d) Agriculture
+117: Answer: (b)
+118: Solution
+119: (a) Climate change =False —
+ The project is not focused on climate=related studies.
+120: (b) Genetic mapping =Correct —
+ Genome India Project aims at genetic mapping of India’s diverse population, creating a reference genome database.
+121: (c) Space research =False —
+ It is unrelated to space exploration.
+122: (d) Agriculture =False —
+ While genetics can aid agriculture, this project is primarily focused on human genomics.
+123: Biotechnology 
+Concept
+124: Statement 
+
+(11) Consider the following:
+125: 1.CAR=T therapy is used in cancer
+126: 2.It involves immune cells
+127: 3.It is a vaccine
+128: Which of the statements given above is/are correct?
+(a) 1 and 2 only
+(b) 2 only
+(c) 1, 2 and 3
+(d) 1 only
+129: Answer: (a)
+130: Solution
+131: Statement 1 =Correct —
+ CAR=T cell therapy is used in the treatment of certain cancers, especially blood cancers.
+132: Statement 2 =Correct —
+ It involves modifying immune cells (T=cells) to target and destroy cancer cells.
+133: Statement 3 =False —
+ CAR=T therapy is not a vaccine; it is a personalized immunotherapy treatment.
+134: Correct Answer: (a) 1 and 2 only
+135: Biotechnology 
+Concept
+136: Pair
+
+(12) Consider the following pairs:
+137: Technology =Application
+138: Atomic Clock =Time measurement
+139: Nanotechnology =Medicine
+140: BMI =Intelligence measurement
+141: How many pairs given above are correctly matched?
+ (a) Only one
+ (b) Only two
+ (c) All three
+ (d) None
+142: Answer: (b)
+143: Solution
+144: Atomic Clock =Time measurement =Correct —
+ Atomic clock is used for accurate time measurement.
+145: Nanotechnology =Medicine =Correct —
+ Nanotechnology is widely applied in medicine, including drug delivery and diagnostics.
+146: BMI =Intelligence measurement =False —
+ Body Mass Index measures body fat, not intelligence.
+147: Correct Answer: (b) Only two
+148: ICT 
+Concept
+149: Statement 
+
+(13) Consider the following:
+150: 1.Quantum teleportation transfers matter
+151: 2.It transfers quantum information
+152: sWhich of the statements given above is/are correct?
+ (a) 1 only
+ (b) 2 only
+ (c) Both
+ (d) Neither
+153: Answer: (b)
+154: Solution
+155: Statement 1 =False —
+ Quantum teleportation does not transfer physical matter.
+156: Statement 2 =Correct —
+ Quantum teleportation transfers quantum information (quantum states) from one location to another.
+157: Correct Answer: (b) 2 only
+158: International Organizations 
+Concept
+159: Normal
+160: (14) INTERPOL headquarters is located in:
+
+ (a) Paris
+ (b) Lyon
+ (c) Geneva
+ (d) Vienna
+161: Answer: (b)
+162: Solution
+163: (a) Paris =False —
+ INTERPOL headquarters is not located in Paris.
+164: (b) Lyon =Correct —
+ INTERPOL headquarters is located in Lyon, France.
+165: (c) Geneva =False —
+ Geneva hosts many international organizations, but not INTERPOL HQ.
+166: (d) Vienna =False —
+ Vienna hosts organizations like IAEA, not INTERPOL.
+167: Correct Answer: (b) Lyon
+168: Security
+Concept
+169: Statement 
+
+(15) Consider the following:
+170: DPDP relates to data protection
+171: Cybercrime coordination centre exists
+172: INTERPOL can arrest criminals directly
+173: Which of the statements given above is/are correct?
+ (a) 1 and 2 only
+ (b) 2 only
+ (c) 1, 2 and 3
+ (d) 1 only
+174: Answer: (a)
+175: Solution
+176: Statement 1 =Correct —
+ Digital Personal Data Protection Act, 2023 relates to data protection and privacy.
+177: Statement 2 =Correct —
+ Indian Cyber Crime Coordination Centre exists to coordinate efforts against cybercrime in India.
+178: Statement 3 =False —
+ INTERPOL cannot arrest criminals directly; it facilitates cooperation between national police agencies.
+179: Correct Answer: (a) 1 and 2 only
+180: ICT 
+Concept
+181: Statement 
+
+(16) Consider the following:
+182: Oxfam reports inequality
+183: DPI improves governance
+184: UDISE tracks education
+185: Digital health is fully universal
+186: Which of the statements given above is/are correct?
+ (a) 1, 2 and 3 only
+ (b) 2 and 4 only
+ (c) 1 and 3 only
+ (d) All
+187: Answer: (a)
+188: Solution
+189: Statement 1 =Correct —
+ Oxfam publishes reports on income inequality and poverty.
+190: Statement 2 =Correct —
+ Digital Public Infrastructure improves governance, service delivery, and inclusion.
+191: Statement 3 =Correct —
+ UDISE+ tracks school education data across India.
+192: Statement 4 =False —
+ Digital health is not fully universal; access and implementation gaps still exist.
+193: Correct Answer: (a) 1, 2 and 3 only
+194: ICT 
+Concept
+195: Statement 
+
+(17) Consider the following:
+196: GI tag gives legal protection
+197: GI is only for agricultural goods
+198: Which of the statements given above is/are correct?
+ (a) 1 only
+ (b) 2 only
+ (c) Both
+ (d) Neither
+199: Answer: (a)
+
+--- data/hindi.docx (First 200 lines) ---
+  0: CENTRE-STATE RELATIONS & LSG 
+CONCEPT
+  1: STATEMENT 
+
+(1) भारत में सहकारिता के संबंध में निम्नलिखित कथनों पर विचार करें:
+  2: कोऑपरेटिव सोसाइटियों को 97वें अमेंडमेंट द्वारा कॉन्स्टिट्यूशनल स्टेटस दिया गया।
+  3: सहकारी समितियों का उल्लेख अनुच्छेद 19(1)(सी) के अंतर्गत किया गया है।
+  4: ऊपर दिए गए कथनों में से कौन सा/से सही है/हैं?
+  5: (a) केवल 1 
+(b) केवल 2 
+(c) 1 और 2 दोनों 
+(d) न तो 1 और न ही 2
+  6: ANSWER: (c)
+  7: SOLUTION
+  8: स्टेटमेंट 1 — सही — 
+97वें कॉन्स्टिट्यूशनल अमेंडमेंट एक्ट, 2011 ने पार्ट IXB (आर्टिकल्स 243ZH–243ZT) को शामिल करके और आर्टिकल 43B को डायरेक्टिव प्रिंसिपल के तौर पर पेश करके कोऑपरेटिव सोसाइटियों को कॉन्स्टिट्यूशनल स्टेटस दिया। इसका मकसद कोऑपरेटिव्स का डेमोक्रेटिक कामकाज, ऑटोनॉमी और प्रोफेशनल मैनेजमेंट पक्का करना था। हालांकि, सुप्रीम कोर्ट ने बाद में इसे मल्टी-स्टेट कोऑपरेटिव्स तक ही सीमित कर दिया, क्योंकि कोऑपरेटिव्स पर राज्यों की शक्तियों को बिना मंज़ूरी के खत्म नहीं किया जा सकता था।
+  9: STATEMENT 2 — सही — 
+आर्टिकल 19(1)(c) में कोऑपरेटिव सोसाइटी बनाने के अधिकार को फंडामेंटल राइट के तौर पर शामिल करने के लिए बदलाव किया गया था। यह कोऑपरेटिव को एसोसिएशन और यूनियन के साथ रखता है, जिससे नागरिकों की आर्थिक और सामाजिक मकसदों के लिए मिलकर काम करने की क्षमता मज़बूत होती है।
+ 10: निष्कर्ष
+ 11: दोनों बातें कोऑपरेटिव से जुड़े संवैधानिक नियमों को सही ढंग से दिखाती हैं।
+ 12: CENTRE-STATE RELATIONS & LSG 
+CONCEPT
+ 13: STATEMENT
+ 14: (2) निम्नलिखित कथनों पर विचार कीजिए:
+ 15: लोकपाल की स्थापना संसद के एक अधिनियम के तहत की गई थी
+ 16: लोकपाल को संवैधानिक दर्जा प्राप्त है
+ 17: लोकपाल में अपवादों के साथ प्रधानमंत्री भी शामिल हैं
+ 18: ऊपर दिए गए कथनों में से कौन सा/से सही है/हैं? 
+(a) सिर्फ़ 1 और 3 
+(b) सिर्फ़ 2 और 3 
+(c) सिर्फ़ 1 
+(d) 1, 2 और 3
+ 19: ANSWER: (a)
+ 20: ANSWER: (a)
+ 21: SOLUTION
+ 22: STATEMENT 1 — सही — 
+लोकपाल और लोकायुक्त अधिनियम, 2013 ने संसद के एक अधिनियम के माध्यम से लोकपाल की स्थापना की।
+ 23: STATEMENT 2 — गलत — 
+लोकपाल को संवैधानिक दर्जा प्राप्त नहीं है; यह एक वैधानिक निकाय है।
+ 24: STATEMENT 3 — सही — 
+लोकपाल का कुछ अपवादों (जैसे, राष्ट्रीय SECURITY, विदेशी संबंध आदि से संबंधित मामले) के साथ प्रधानमंत्री पर अधिकार क्षेत्र है।
+ 25: CENTRE-STATE RELATIONS & LSG 
+CONCEPT
+ 26: PAIR 
+
+(3) निम्नलिखित निकायों को उनकी प्रकृति से मिलाएं:
+ 27: नीचे दिए गए कोड का इस्तेमाल करके सही जवाब चुनें:
+ 28: (ए) 1–ए, 2–बी, 3–सी 
+(बी) 1–बी, 2–सी, 3–ए 
+(सी) 1–ए, 2–सी, 3–बी 
+(डी) 1–सी, 2–ए, 3–बी
+ 29: ANSWER: (d) 1–सी, 2–ए, 3–बी
+ 30: SOLUTION
+ 31: नीति आयोग - कार्यकारी निकाय - सही - 
+नीति आयोग एक सरकारी प्रस्ताव द्वारा बनाई गई एक कार्यकारी निकाय है।
+ 32: लोकपाल - वैधानिक निकाय - सही - 
+लोकपाल संसद के अधिनियम द्वारा स्थापित एक वैधानिक निकाय है।
+ 33: भारत का चुनाव आयोग - संवैधानिक निकाय - सही - 
+भारत का चुनाव आयोग अनुच्छेद 324 के तहत एक संवैधानिक निकाय है।
+ 34: CENTRE-STATE RELATIONS & LSG 
+CONCEPT
+ 35: STATEMENT
+ 36: (4) निम्नलिखित कथनों पर विचार कीजिए:
+ 37: टेलीग्राफ एक्ट के तहत इंटरनेट शटडाउन लगाया जा सकता है
+ 38: एक्ट में आधार साफ़ तौर पर बताए गए हैं
+ 39: ऊपर दिए गए कथनों में से कौन सा/से सही है/हैं? 
+(a) केवल 1 
+(b) केवल 2 
+(c) दोनों 
+(d) कोई नहीं
+ 40: ANSWER: (a)
+ 41: SOLUTION
+ 42: STATEMENT 1 — सही — 
+भारतीय टेलीग्राफ अधिनियम, 1885 कानूनी आधार प्रदान करता है जिसके तहत इंटरनेट शटडाउन लगाया जा सकता है (इसके तहत तैयार नियमों के माध्यम से)।
+ 43: बयान 2 — गलत — 
+एक्ट में ही आधार साफ़ तौर पर बताए नहीं गए हैं ; उन्हें नियमों और एग्जीक्यूटिव ऑर्डर के ज़रिए मोटे तौर पर समझाया और डिटेल में बताया गया है।
+ 44: ECONOMY MISCELLANEOUS 
+CONCEPT
+ 45: NORMAL
+
+(5) सीबीडीसी जारी किया जाता है: 
+
+(ए) सेबी 
+(बी) आरबीआई 
+(सी) आईएमएफ 
+(डी) विश्व बैंक
+ 46: ANSWER: (b)
+ 47: SOLUTION
+ 48: (ए) सेबी — गलत — 
+भारतीय प्रतिभूति और विनिमय बोर्ड प्रतिभूति बाजारों को नियंत्रित करता है, मुद्रा जारी करने को नहीं।
+ 49: (बी) आरबीआई - सही - 
+भारतीय रिजर्व बैंक भारत की मौद्रिक प्रणाली के हिस्से के रूप में सीबीडीसी (केंद्रीय बैंक डिजिटल मुद्रा) जारी करता है।
+ 50: (सी) आईएमएफ — गलत — 
+अंतर्राष्ट्रीय मुद्रा कोष राष्ट्रीय डिजिटल मुद्राएं जारी नहीं करता है।
+ 51: (घ) विश्व बैंक - गलत - 
+विश्व बैंक वित्तीय सहायता प्रदान करता है, मुद्रा जारी नहीं करता।
+ 52: मैक्रो फंडामेंटल्स, GDP, इन्वेस्टमेंट, ग्रोथ 
+कॉन्सेप्ट
+ 53: STATEMENT 
+
+(6) निम्नलिखित पर विचार करें:
+ 54: रुपये के मूल्यह्रास से आयात लागत बढ़ी
+ 55: WPI खुदरा मुद्रास्फीति को मापता है
+ 56: HCES खपत को मापता है
+ 57: ऊपर दिए गए कथनों में से कौन सा/से सही है/हैं? 
+(a) केवल 1 और 3 
+(b) केवल 2 
+(c) 1, 2 और 3 
+(d) केवल 1
+ 58: ANSWER: (a)
+ 59: SOLUTION
+ 60: STATEMENT 1 — सही — 
+रुपये के अवमूल्यन से आयात अधिक महंगा हो जाता है, क्योंकि विदेशी मुद्रा खरीदने के लिए अधिक रुपये की आवश्यकता होती है, जिससे आयात लागत बढ़ जाती है।
+ 61: STATEMENT 2 — गलत — 
+थोक मूल्य सूचकांक थोक मुद्रास्फीति को मापता है, खुदरा मुद्रास्फीति को नहीं (जिसे सीपीआई द्वारा मापा जाता है)।
+ 62: STATEMENT 3 — सही — 
+घरेलू उपभोग व्यय सर्वेक्षण घरों के उपभोग पैटर्न और व्यय को मापता है।
+ 63: निष्कर्ष
+ 64: STATEMENT 1 और 3 सही हैं, जबकि STATEMENT 2 गलत है।
+ 65: INTERNATIONAL ORGANIZATIONS 
+CONCEPT
+ 66: PAIR 
+
+(7) निम्नलिखित संस्थानों को उनके कार्यों से मिलाएं:
+ 67: नीचे दिए गए कोड का इस्तेमाल करके सही जवाब चुनें:
+ 68: (ए) 1–ए, 2–सी, 3–बी 
+(बी) 1–बी, 2–ए, 3–सी 
+(सी) 1–ए, 2–बी, 3–सी 
+(डी) 1–सी, 2–ए, 3–बी
+ 69: SOLUTION
+ 70: 1–ए (डब्ल्यूएचओ — वैश्विक स्वास्थ्य शासन) — सही — 
+विश्व स्वास्थ्य संगठन वैश्विक स्वास्थ्य शासन के लिए जिम्मेदार है।
+ 71: 2–बी (आईएमएफ — अंतर्राष्ट्रीय मौद्रिक स्थिरता) — सही — 
+अंतर्राष्ट्रीय मुद्रा कोष अंतर्राष्ट्रीय मौद्रिक स्थिरता और वित्तीय सहयोग सुनिश्चित करता है।
+ 72: 3–सी (डब्ल्यूटीओ — व्यापार विनियमन) — सही — 
+विश्व व्यापार संगठन INTERNATIONAL TRADE नियमों को नियंत्रित करता है।
+ 73: ENV ENERGY 
+CONCEPT
+ 74: STATEMENT 
+
+(8) निम्नलिखित पर विचार करें:
+ 75: आईएमडी ने 150 साल पूरे किए
+ 76: ग्लेशियर सिकुड़ रहे हैं
+ 77: हाइड्रोजन ट्रेनें जीवाश्म ईंधन का उपयोग करती हैं
+ 78: थर्मल प्लांट SO₂ उत्सर्जित करते हैं
+ 79: ऊपर दिए गए कथनों में से कौन सा/से सही है/हैं? 
+(a) केवल 1, 2 और 4 
+(b) केवल 2 और 3 
+(c) केवल 1 और 3 
+(d) सभी
+ 80: ANSWER: (a)
+ 81: SOLUTION
+ 82: STATEMENT 1 — सही — 
+भारत मौसम विज्ञान विभाग ने 150 वर्ष की सेवा पूरी कर ली है।
+ 83: STATEMENT 2 — सही — 
+जलवायु परिवर्तन और बढ़ते तापमान के कारण विश्व भर में ग्लेशियर सिकुड़ रहे हैं।
+ 84: STATEMENT 3 — गलत — 
+हाइड्रोजन ट्रेनें हाइड्रोजन ईंधन (स्वच्छ ऊर्जा) का उपयोग करती हैं, जीवाश्म ईंधन का नहीं।
+ 85: STATEMENT 4 — सही — 
+थर्मल पावर प्लांट सल्फर डाइऑक्साइड (SO₂) उत्सर्जित करते हैं, जो वायु प्रदूषण में योगदान देता है।
+ 86: INFRASTRUCTURE & INDUSTRIES 
+CONCEPT
+ 87: STATEMENT
+ 88: (9) सहकारी बैंकों के बारे में निम्नलिखित कथनों पर विचार करें:
+ 89: इन्हें RBI रेगुलेट करता है।
+ 90: वे स्टेट कोऑपरेटिव सोसाइटीज़ एक्ट के तहत रजिस्टर्ड हैं।
+ 91: उन्हें शेयर जारी करने की अनुमति नहीं है।
+ 92: ऊपर दिए गए कथनों में से कौन-से सही हैं?
+ 93: (a) केवल 1 
+(b) केवल 1 और 2 
+(c) केवल 2 और 3 
+(d) तीनों
+ 94: ANSWER: (b)
+ 95: SOLUTION
+ 96: STATEMENT 1 — सही — 
+भारतीय रिज़र्व बैंक, कुछ मामलों में नाबार्ड के साथ मिलकर, बैंकिंग परिचालन (जैसे लाइसेंसिंग, तरलता और विवेकपूर्ण मानदंड) के संदर्भ में सहकारी बैंकों को नियंत्रित करता है।
+ 97: STATEMENT 2 — सही — 
+सहकारी बैंक राज्य सहकारी समिति अधिनियमों (या राज्यों में संचालित होने वालों के लिए बहु-राज्य सहकारी समिति अधिनियम) के तहत पंजीकृत होते हैं, जो उनके सहकारी ढांचे को दर्शाता है।
+ 98: STATEMENT 3 — गलत — 
+कोऑपरेटिव बैंक शेयर जारी कर सकते हैं , लेकिन सिर्फ़ अपने सदस्यों को (कंपनी शेयरों की तरह फ़्री ट्रेडेबल नहीं)। इसलिए, यह कहना कि उन्हें शेयर जारी करने की अनुमति नहीं है, गलत है।
+ 99: निष्कर्ष
+100: STATEMENT 1 और 2 सही हैं, जबकि STATEMENT 3 गलत है।
+101: BIOTECHNOLOGY 
+CONCEPT
+102: NORMAL
+
+(10) जीनोम इंडिया परियोजना किससे संबंधित है? 
+
+(a) जलवायु परिवर्तन 
+(b) आनुवंशिक मानचित्रण 
+(c) अंतरिक्ष अनुसंधान 
+(d) कृषि
+103: ANSWER: (b)
+104: SOLUTION
+105: (ए) जलवायु परिवर्तन - गलत - 
+परियोजना जलवायु-संबंधी अध्ययनों पर केंद्रित नहीं है।
+106: (बी) जेनेटिक मैपिंग - सही - 
+जीनोम इंडिया परियोजना का उद्देश्य भारत की विविधतापूर्ण आबादी का जेनेटिक मैपिंग करना और एक संदर्भ जीनोम डेटाबेस बनाना है।
+107: (सी) अंतरिक्ष अनुसंधान - गलत - 
+यह अंतरिक्ष अन्वेषण से संबंधित नहीं है।
+108: (डी) कृषि - गलत - 
+जबकि आनुवंशिकी कृषि में सहायता कर सकती है, यह परियोजना मुख्य रूप से मानव जीनोमिक्स पर केंद्रित है ।
+109: BIOTECHNOLOGY 
+CONCEPT
+110: STATEMENT 
+
+(11) निम्नलिखित पर विचार करें:
+111: CAR-T थेरेपी का इस्तेमाल कैंसर में किया जाता है
+112: इसमें प्रतिरक्षा कोशिकाएं शामिल होती हैं
+113: यह एक वैक्सीन है
+114: ऊपर दिए गए कथनों में से कौन सा/से सही है/हैं? 
+(a) केवल 1 और 2 
+(b) केवल 2 
+(c) 1, 2 और 3 
+(d) केवल 1
+115: ANSWER: (a)
+116: SOLUTION
+117: STATEMENT 1 — सही — 
+सीएआर-टी सेल थेरेपी का उपयोग कुछ कैंसर , विशेष रूप से रक्त कैंसर के उपचार में किया जाता है।
+118: STATEMENT 2 — सही — 
+इसमें कैंसर कोशिकाओं को लक्षित करने और नष्ट करने के लिए प्रतिरक्षा कोशिकाओं (टी-कोशिकाओं) को संशोधित करना शामिल है।
+119: STATEMENT 3 — गलत — 
+CAR-T थेरेपी एक वैक्सीन नहीं है ; यह एक पर्सनलाइज़्ड इम्यूनोथेरेपी ट्रीटमेंट है ।
+120: BIOTECHNOLOGY 
+CONCEPT
+121: PAIR 
+
+(12) निम्नलिखित जोड़ों पर विचार करें:
+122: प्रौद्योगिकी — अनुप्रयोग
+123: परमाणु घड़ी — समय मापन
+124: नैनो प्रौद्योगिकी - चिकित्सा
+125: बीएमआई - बुद्धि माप
+126: ऊपर दिए गए कितने जोड़े सही ढंग से मेल खाते हैं? 
+(a) सिर्फ़ एक 
+(b) सिर्फ़ दो 
+(c) तीनों 
+(d) कोई नहीं
+127: ANSWER: (b)
+128: SOLUTION
+129: परमाणु घड़ी - समय माप - सही - 
+परमाणु घड़ी का उपयोग सटीक समय माप के लिए किया जाता है।
+130: नैनोटेक्नोलॉजी — चिकित्सा — सही — 
+नैनोटेक्नोलॉजी का व्यापक रूप से चिकित्सा में उपयोग किया जाता है, जिसमें दवा वितरण और निदान शामिल हैं।
+131: बीएमआई - बुद्धि माप - गलत - 
+बॉडी मास इंडेक्स शरीर की वसा को मापता है, बुद्धि को नहीं।
+132: ICT
+CONCEPT
+133: STATEMENT 
+
+(13) निम्नलिखित पर विचार करें:
+134: क्वांटम टेलीपोर्टेशन पदार्थ स्थानांतरित करता है
+135: यह क्वांटम सूचना स्थानांतरित करता है
+136: ऊपर दिए गए कथनों में से कौन सा/से सही है/हैं? 
+(a) केवल 1 
+(b) केवल 2 
+(c) दोनों 
+(d) कोई नहीं
+137: ANSWER: (b)
+138: SOLUTION
+139: STATEMENT 1 — गलत — 
+क्वांटम टेलीपोर्टेशन भौतिक पदार्थ को स्थानांतरित नहीं करता है।
+140: STATEMENT 2 — सही — 
+क्वांटम टेलीपोर्टेशन क्वांटम सूचना (क्वांटम अवस्थाओं) को एक स्थान से दूसरे स्थान पर स्थानांतरित करता है।
+141: INTERNATIONAL ORGANIZATIONS 
+CONCEPT
+142: सामान्य
+143: (14) इंटरपोल का मुख्यालय कहाँ स्थित है? 
+
+(a) पेरिस 
+(b) ल्योन 
+(c) जिनेवा 
+(d) वियना
+144: ANSWER: (b)
+145: SOLUTION
+146: (a) पेरिस — गलत — 
+इंटरपोल का मुख्यालय पेरिस में स्थित नहीं है।
+147: (बी) ल्योन - सही - 
+इंटरपोल मुख्यालय ल्योन, फ्रांस में स्थित है ।
+148: (सी) जिनेवा - गलत - 
+जिनेवा कई अंतरराष्ट्रीय संगठनों की मेजबानी करता है, लेकिन इंटरपोल मुख्यालय नहीं।
+149: (d) वियना - गलत - 
+वियना IAEA जैसे संगठनों की मेजबानी करता है, INTERPOL की नहीं।
+150: SECURITY 
+CONCEPT
+151: STATEMENT 
+
+(15) निम्नलिखित पर विचार करें:
+152: DPDP डेटा SECURITY से संबंधित है
+153: साइबर अपराध समन्वय केंद्र मौजूद है
+154: इंटरपोल सीधे अपराधियों को गिरफ्तार कर सकता है
+155: ऊपर दिए गए कथनों में से कौन सा/से सही है/हैं? 
+(a) केवल 1 और 2 
+(b) केवल 2 
+(c) 1, 2 और 3 
+(d) केवल 1
+156: ANSWER: (a)
+157: SOLUTION
+158: STATEMENT 1 — सही — 
+डिजिटल व्यक्तिगत डेटा संरक्षण अधिनियम, 2023 डेटा SECURITY और गोपनीयता से संबंधित है ।
+159: STATEMENT 2 — सही — 
+भारतीय साइबर अपराध समन्वय केंद्र भारत में साइबर अपराध के खिलाफ प्रयासों का समन्वय करने के लिए मौजूद है ।
+160: बयान 3 — गलत — 
+इंटरपोल सीधे अपराधियों को गिरफ्तार नहीं कर सकता ; यह राष्ट्रीय पुलिस एजेंसियों के बीच सहयोग को आसान बनाता है।
+161: ICT
+CONCEPT
+162: STATEMENT 
+
+(16) निम्नलिखित पर विचार करें:
+163: ऑक्सफैम ने असमानता की रिपोर्ट दी
+164: DPI शासन में सुधार करता है
+165: यूडीआईएसई शिक्षा पर नज़र रखता है
+166: डिजिटल स्वास्थ्य पूरी तरह से सार्वभौमिक है
+167: ऊपर दिए गए कथनों में से कौन सा/से सही है/हैं? 
+(a) केवल 1, 2 और 3 
+(b) केवल 2 और 4 
+(c) केवल 1 और 3 
+(d) सभी
+168: ANSWER: (a)
+169: SOLUTION
+170: STATEMENT 1 — सही — 
+ऑक्सफैम आय असमानता और गरीबी पर रिपोर्ट प्रकाशित करता है ।
+171: STATEMENT 2 — सही — 
+डिजिटल सार्वजनिक अवसंरचना शासन, सेवा वितरण और समावेशन में सुधार करती है ।
+172: STATEMENT 3 — सही — 
+यूडीआईएसई+ पूरे भारत में स्कूली शिक्षा डेटा को ट्रैक करता है ।
+173: बयान 4 — गलत — 
+डिजिटल हेल्थ पूरी तरह से यूनिवर्सल नहीं है ; एक्सेस और इम्प्लीमेंटेशन में अभी भी गैप मौजूद हैं।
+174: ICT
+CONCEPT
+175: STATEMENT 
+
+(17) निम्नलिखित पर विचार करें:
+176: जीआई टैग कानूनी SECURITY देता है
+177: GI सिर्फ़ कृषि उत्पादों के लिए है
+178: ऊपर दिए गए कथनों में से कौन सा/से सही है/हैं? 
+(a) केवल 1 
+(b) केवल 2 
+(c) दोनों 
+(d) कोई नहीं
+179: ANSWER: (a)
+180: SOLUTION
+181: STATEMENT 1 — सही — 
+भौगोलिक संकेत (जीआई) टैग एक विशिष्ट क्षेत्र से जुड़े उत्पादों को कानूनी SECURITY प्रदान करता है।
+182: STATEMENT 2 — गलत — 
+जीआई केवल कृषि वस्तुओं तक सीमित नहीं है; इसमें हस्तशिल्प, वस्त्र और निर्मित उत्पाद भी शामिल हैं ।
+183: BIOTECHNOLOGY 
+CONCEPT
+184: NORMAL
+
+(18) कलरीपयट्टू है: 
+
+(a) नृत्य 
+(b) मार्शल आर्ट 
+(c) चित्रकारी 
+(d) संगीत
+185: ANSWER: (b)
+186: SOLUTION
+187: (क) नृत्य — गलत — 
+कलरीपयट्टू एक नृत्य शैली नहीं है।
+188: (बी) मार्शल आर्ट - सही - 
+कलरीपयट्टू केरल की एक प्राचीन मार्शल आर्ट है, जो अपनी युद्ध तकनीकों और शारीरिक प्रशिक्षण के लिए जानी जाती है।
+189: (ग) चित्रकारी - गलत - 
+यह चित्रकारी से संबंधित नहीं है।
+190: (घ) संगीत — गलत — 
+कलरीपयट्टू एक संगीत रूप नहीं है।
+191: ICT
+CONCEPT
+192: STATEMENT 
+
+(19) निम्नलिखित पर विचार करें:
+193: 97वां संशोधन सहकारी समितियों से संबंधित है
+194: अनुच्छेद 43B सहकारी समितियों को बढ़ावा देता है
+195: सहकारी समितियां केंद्रीय विषय हैं
+196: ऊपर दिए गए कथनों में से कौन सा/से सही है/हैं? 
+(a) केवल 1 और 2 
+(b) केवल 2 
+(c) 1, 2 और 3 
+(d) केवल 1
+197: ANSWER: (a)
+198: SOLUTION
+199: STATEMENT 1 — सही — 
+97वां संविधान संशोधन (2011) सहकारी समितियों से संबंधित है, जो उन्हें संवैधानिक दर्जा प्रदान करता है।

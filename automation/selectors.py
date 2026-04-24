@@ -2,7 +2,7 @@ SELECTORS = {
     # -----------------------------------------------------------------------
     # Subtopic — React Select
     # -----------------------------------------------------------------------
-    "subtopic_input": "input[id^='react-select-2-live-region']",
+    "subtopic_input": "input[id*='react-select-'][id$='-input']",
 
     # -----------------------------------------------------------------------
     # Question Type — radio buttons (click LABEL to avoid span overlay)
